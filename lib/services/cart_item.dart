@@ -1,8 +1,5 @@
-
-
 class CartItem {
-
-  CartItem({ this.name, this.color, this.price, this.qty });
+  CartItem({this.name, this.color, this.price, this.qty});
 
   String name;
   String color;

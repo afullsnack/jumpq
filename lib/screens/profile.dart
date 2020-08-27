@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:jumpq/widgets/header.dart';
+import 'package:jumpq/widgets/widgets.dart';
 
 class Profile extends StatefulWidget {
   Profile({Key key, this.title}) : super(key: key);

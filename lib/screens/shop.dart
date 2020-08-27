@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:jumpq/widgets/header.dart';
+import 'package:jumpq/widgets/widgets.dart';
 
 class Shop extends StatefulWidget {
-
-  Shop({ Key key, this.title }) : super(key: key);
+  Shop({Key key, this.title}) : super(key: key);
 
   final String title;
 
@@ -12,7 +11,6 @@ class Shop extends StatefulWidget {
 }
 
 class _ShopState extends State<Shop> {
-
   final myController = TextEditingController();
 
   @override
@@ -41,33 +39,36 @@ class _ShopState extends State<Shop> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  SizedBox(height: 20.0,),
+                  SizedBox(
+                    height: 20.0,
+                  ),
                   GestureDetector(
-                    onTap: (){},
+                    onTap: () {},
                     child: Container(
                       height: 190.0,
                       width: 190.0,
                       decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(20.0),
-                        boxShadow: [
-                          BoxShadow(
-                            blurRadius: 9,
-                            spreadRadius: -3,
-                            offset: Offset(5, 5),
-                            color: Colors.grey,
-                          ),
-                          BoxShadow(
-                            blurRadius: 9,
-                            spreadRadius: -4,
-                            offset: Offset(-7, -7),
-                            color: Colors.grey[200],
-                          ),
-                        ]
-                      ),
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(20.0),
+                          boxShadow: [
+                            BoxShadow(
+                              blurRadius: 9,
+                              spreadRadius: -3,
+                              offset: Offset(5, 5),
+                              color: Colors.grey,
+                            ),
+                            BoxShadow(
+                              blurRadius: 9,
+                              spreadRadius: -4,
+                              offset: Offset(-7, -7),
+                              color: Colors.grey[200],
+                            ),
+                          ]),
                     ),
                   ),
-                  SizedBox(height: 20.0,),
+                  SizedBox(
+                    height: 20.0,
+                  ),
                   Text(
                     'Tap to scan the barcode',
                     style: TextStyle(
@@ -75,7 +76,9 @@ class _ShopState extends State<Shop> {
                       fontWeight: FontWeight.w600,
                     ),
                   ),
-                  SizedBox(height: 100.0,),
+                  SizedBox(
+                    height: 100.0,
+                  ),
                   FlatButton(
                     color: Colors.deepOrange[500],
                     textColor: Colors.white,
@@ -84,16 +87,17 @@ class _ShopState extends State<Shop> {
                       borderRadius: BorderRadius.circular(15.0),
                     ),
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 60.0),
-                      child: Text(
-                        'Add to cart'
-                      ),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 8.0, horizontal: 60.0),
+                      child: Text('Add to cart'),
                     ),
-                    onPressed: (){
+                    onPressed: () {
                       print("Add to cart pressed");
                     },
                   ),
-                  SizedBox(height: 3.0,),
+                  SizedBox(
+                    height: 3.0,
+                  ),
                   FlatButton(
                     color: Colors.deepOrange[500],
                     textColor: Colors.white,
@@ -102,12 +106,11 @@ class _ShopState extends State<Shop> {
                       borderRadius: BorderRadius.circular(15.0),
                     ),
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 65.0),
-                      child: Text(
-                          'View cart'
-                      ),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 8.0, horizontal: 65.0),
+                      child: Text('View cart'),
                     ),
-                    onPressed: (){
+                    onPressed: () {
                       print("View cart pressed");
                     },
                   ),

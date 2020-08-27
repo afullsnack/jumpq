@@ -1,7 +1,4 @@
-//import 'package:flutter/cupertino.dart';
-
 import 'package:flutter/material.dart';
-import 'package:jumpq/screens/pay_options.dart';
 import 'package:jumpq/screens/screens.dart';
 
 void main() => runApp(MaterialApp(
@@ -9,6 +6,12 @@ void main() => runApp(MaterialApp(
       initialRoute: 'splash',
       routes: {
         'splash': (context) => Splash(),
+        'register': (context) => Register(
+              title: 'Register',
+            ),
+        'login': (context) => Login(
+              title: 'Login',
+            ),
         'home': (context) => Home(
               title: 'Home',
             ),

@@ -1,10 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:jumpq/widgets/header.dart';
+import 'package:jumpq/widgets/widgets.dart';
 
 class Home extends StatelessWidget {
-
-  Home({ Key key, this.title }) : super(key: key);
+  Home({Key key, this.title}) : super(key: key);
 
   final String title;
 
@@ -18,7 +17,8 @@ class Home extends StatelessWidget {
           Header(
             title: title,
             actionIcon: Icon(
-              Icons.exit_to_app, color: Colors.white,
+              Icons.exit_to_app,
+              color: Colors.white,
             ),
           ),
           Expanded(
@@ -47,11 +47,13 @@ class Home extends StatelessWidget {
                                   backgroundColor: Colors.deepOrange[700],
                                   mini: true,
                                   child: Icon(Icons.person),
-                                  onPressed: (){
+                                  onPressed: () {
                                     Navigator.pushNamed(context, 'profile');
                                   },
                                 ),
-                                SizedBox(width: 12.0,),
+                                SizedBox(
+                                  width: 12.0,
+                                ),
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
@@ -69,20 +71,24 @@ class Home extends StatelessWidget {
                           ),
                           Expanded(
                             child: Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 5.0),
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 0, horizontal: 5.0),
                               child: ListView.builder(
                                 scrollDirection: Axis.horizontal,
                                 itemCount: 4,
-                                itemBuilder: (context, i){
+                                itemBuilder: (context, i) {
                                   return Container(
-                                    width: (MediaQuery.of(context).size.width/3),
-                                    margin: EdgeInsets.symmetric(vertical: 5, horizontal: 3),
+                                    width:
+                                        (MediaQuery.of(context).size.width / 3),
+                                    margin: EdgeInsets.symmetric(
+                                        vertical: 5, horizontal: 3),
                                     decoration: BoxDecoration(
                                       color: Colors.grey[300],
                                       borderRadius: BorderRadius.circular(4),
                                     ),
                                     child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
                                       children: <Widget>[
                                         Image(
                                           image: AssetImage('assets/logo.png'),
@@ -90,7 +96,8 @@ class Home extends StatelessWidget {
                                         Padding(
                                           padding: const EdgeInsets.all(8.0),
                                           child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
                                             children: <Widget>[
                                               Text(
                                                 'Product',
@@ -121,12 +128,14 @@ class Home extends StatelessWidget {
                             color: Colors.grey[700],
                           ),
                           Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 10.0),
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 4.0, horizontal: 10.0),
                             child: Align(
                               alignment: Alignment.bottomRight,
                               child: FlatButton(
                                 color: Colors.deepOrange[700],
-                                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 10, horizontal: 20),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(16),
                                 ),
@@ -137,7 +146,7 @@ class Home extends StatelessWidget {
                                     color: Colors.white,
                                   ),
                                 ),
-                                onPressed: (){
+                                onPressed: () {
                                   print('Pay now pressed');
                                 },
                               ),
@@ -158,7 +167,8 @@ class Home extends StatelessWidget {
                       child: Column(
                         children: <Widget>[
                           Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 20.0),
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 8.0, horizontal: 20.0),
                             child: Align(
                               alignment: Alignment.topLeft,
                               child: Text(
@@ -169,13 +179,18 @@ class Home extends StatelessWidget {
                               ),
                             ),
                           ),
-                          Divider(height: 5, thickness: 2,),
+                          Divider(
+                            height: 5,
+                            thickness: 2,
+                          ),
                           Expanded(
                             child: Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 3.0, horizontal: 8.0),
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 3.0, horizontal: 8.0),
                               child: Row(
                                 crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: <Widget>[
                                   Expanded(
                                     child: Padding(
@@ -183,19 +198,33 @@ class Home extends StatelessWidget {
                                       child: FlatButton(
                                         padding: EdgeInsets.all(15.0),
                                         shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(20.0),
+                                          borderRadius:
+                                              BorderRadius.circular(20.0),
                                         ),
-                                        onPressed: (){
+                                        onPressed: () {
 //                                    print('Shop Button pressed!');
                                           Navigator.pushNamed(context, 'shop');
                                         },
                                         color: Colors.deepOrange[700],
                                         child: Column(
-                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
                                           children: <Widget>[
-                                            Icon(Icons.account_balance, color: Colors.white, size: 43.0,),
-                                            SizedBox(height: 14.0,),
-                                            Text('Shop for products', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500), textAlign: TextAlign.center,),
+                                            Icon(
+                                              Icons.account_balance,
+                                              color: Colors.white,
+                                              size: 43.0,
+                                            ),
+                                            SizedBox(
+                                              height: 14.0,
+                                            ),
+                                            Text(
+                                              'Shop for products',
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.w500),
+                                              textAlign: TextAlign.center,
+                                            ),
                                           ],
                                         ),
                                       ),
@@ -207,19 +236,33 @@ class Home extends StatelessWidget {
                                       child: FlatButton(
                                         padding: EdgeInsets.all(15.0),
                                         shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(20.0),
+                                          borderRadius:
+                                              BorderRadius.circular(20.0),
                                         ),
-                                        onPressed: (){
+                                        onPressed: () {
 //                                    print('Cart Button pressed!');
                                           Navigator.pushNamed(context, 'cart');
                                         },
                                         color: Colors.deepOrange[700],
                                         child: Column(
-                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
                                           children: <Widget>[
-                                            Icon(Icons.shopping_cart, color: Colors.white, size: 43.0,),
-                                            SizedBox(height: 14.0,),
-                                            Text('Cart', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500), textAlign: TextAlign.center,),
+                                            Icon(
+                                              Icons.shopping_cart,
+                                              color: Colors.white,
+                                              size: 43.0,
+                                            ),
+                                            SizedBox(
+                                              height: 14.0,
+                                            ),
+                                            Text(
+                                              'Cart',
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.w500),
+                                              textAlign: TextAlign.center,
+                                            ),
                                           ],
                                         ),
                                       ),
@@ -231,19 +274,34 @@ class Home extends StatelessWidget {
                                       child: FlatButton(
                                         padding: EdgeInsets.all(15.0),
                                         shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(20.0),
+                                          borderRadius:
+                                              BorderRadius.circular(20.0),
                                         ),
-                                        onPressed: (){
+                                        onPressed: () {
 //                                    print('Transaction Histroy Button pressed!');
-                                          Navigator.pushNamed(context, 'transaction');
+                                          Navigator.pushNamed(
+                                              context, 'transaction');
                                         },
                                         color: Colors.deepOrange[700],
                                         child: Column(
-                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
                                           children: <Widget>[
-                                            Icon(Icons.format_list_bulleted, color: Colors.white, size: 43.0,),
-                                            SizedBox(height: 14.0,),
-                                            Text('Transaction History', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500), textAlign: TextAlign.center,),
+                                            Icon(
+                                              Icons.format_list_bulleted,
+                                              color: Colors.white,
+                                              size: 43.0,
+                                            ),
+                                            SizedBox(
+                                              height: 14.0,
+                                            ),
+                                            Text(
+                                              'Transaction History',
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.w500),
+                                              textAlign: TextAlign.center,
+                                            ),
                                           ],
                                         ),
                                       ),

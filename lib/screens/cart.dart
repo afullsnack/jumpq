@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:jumpq/services/cart_item.dart';
-import 'package:jumpq/widgets/cart_item_view.dart';
-import 'package:jumpq/widgets/header.dart';
+import 'package:jumpq/services/services.dart';
+import 'package:jumpq/widgets/widgets.dart';
 
 class Cart extends StatefulWidget {
-
-  Cart({ Key key, this.title }) : super(key: key);
+  Cart({Key key, this.title}) : super(key: key);
 
   final String title;
 
@@ -14,14 +12,19 @@ class Cart extends StatefulWidget {
 }
 
 class _CartState extends State<Cart> {
-
   List<CartItem> cartItems = [
-    CartItem(name:'Sneakers jogging', color:'Blue/White', price:'4,500', qty:1),
-    CartItem(name:'Fashion sneakers', color:'Blue/Grey', price:'3,500', qty:1),
-    CartItem(name:'Fashion jacket', color:'Dark Grey', price:'10,000', qty:1),
-    CartItem(name:'Fashion sneakers', color:'Pink/Grey', price:'4,550', qty:1),
-    CartItem(name:'Fashion jacket', color:'Dark Grey', price:'10,000', qty:1),
-    CartItem(name:'Fashion sneakers', color:'Blue/Grey', price:'3,500', qty:1),
+    CartItem(
+        name: 'Sneakers jogging', color: 'Blue/White', price: '4,500', qty: 1),
+    CartItem(
+        name: 'Fashion sneakers', color: 'Blue/Grey', price: '3,500', qty: 1),
+    CartItem(
+        name: 'Fashion jacket', color: 'Dark Grey', price: '10,000', qty: 1),
+    CartItem(
+        name: 'Fashion sneakers', color: 'Pink/Grey', price: '4,550', qty: 1),
+    CartItem(
+        name: 'Fashion jacket', color: 'Dark Grey', price: '10,000', qty: 1),
+    CartItem(
+        name: 'Fashion sneakers', color: 'Blue/Grey', price: '3,500', qty: 1),
   ];
 
   @override
@@ -42,17 +45,20 @@ class _CartState extends State<Cart> {
             flex: 6,
             child: Container(
               child: Padding(
-                padding: const EdgeInsets.symmetric(vertical:5.0, horizontal: 10.0),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
                 child: ListView(
                   scrollDirection: Axis.vertical,
-                  children: cartItems.map((item) => CartItemView(
-                    item: item,
-                    removeCartItem: () {
-                      setState(() {
-                        cartItems.remove(item);
-                      });
-                    },
-                  )).toList(),
+                  children: cartItems
+                      .map((item) => CartItemView(
+                            item: item,
+                            removeCartItem: () {
+                              setState(() {
+                                cartItems.remove(item);
+                              });
+                            },
+                          ))
+                      .toList(),
                 ),
               ),
             ),
@@ -79,7 +85,9 @@ class _CartState extends State<Cart> {
                                   color: Colors.grey[700].withOpacity(.6),
                                 ),
                               ),
-                              SizedBox(height: 10,),
+                              SizedBox(
+                                height: 10,
+                              ),
                               Text(
                                 '#37,550.00',
                                 style: TextStyle(
@@ -97,19 +105,23 @@ class _CartState extends State<Cart> {
                               borderRadius: BorderRadius.circular(15.0),
                             ),
                             child: Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 3.0, horizontal: 20.0),
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 3.0, horizontal: 20.0),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
-                                  Text(
-                                      'CHECK OUT NOW'
+                                  Text('CHECK OUT NOW'),
+                                  SizedBox(
+                                    width: 10.0,
                                   ),
-                                  SizedBox(width: 10.0,),
-                                  Icon(Icons.arrow_forward, color: Colors.white,),
+                                  Icon(
+                                    Icons.arrow_forward,
+                                    color: Colors.white,
+                                  ),
                                 ],
                               ),
                             ),
-                            onPressed: (){},
+                            onPressed: () {},
                           ),
                         ],
                       ),

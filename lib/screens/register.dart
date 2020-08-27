@@ -309,9 +309,10 @@ class _RegisterState extends State<Register> {
                   padding:
                       EdgeInsets.symmetric(vertical: 10.0, horizontal: 60.0),
                   onPressed: () {
-                    if (!_formKeyRegister.currentState.validate()) {
-                      return;
-                    }
+                    // if (!_formKeyRegister.currentState.validate()) {
+                    //   return;
+                    // }
+                    Navigator.pushReplacementNamed(context, 'login');
 
                     _formKeyRegister.currentState.save();
 

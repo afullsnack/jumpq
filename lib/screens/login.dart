@@ -119,9 +119,11 @@ class _LoginState extends State<Login> {
                   padding:
                       EdgeInsets.symmetric(vertical: 10.0, horizontal: 60.0),
                   onPressed: () {
-                    if (!_formKeyLogin.currentState.validate()) {
-                      return;
-                    }
+                    // if (!_formKeyLogin.currentState.validate()) {
+                    //   return;
+                    // }
+
+                    Navigator.pushReplacementNamed(context, 'home');
 
                     _formKeyLogin.currentState.save();
 

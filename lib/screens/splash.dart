@@ -1,18 +1,15 @@
 import 'package:flutter/material.dart';
 
 class Splash extends StatefulWidget {
-
   @override
   _SplashState createState() => _SplashState();
 }
 
 class _SplashState extends State<Splash> {
-
   void getData() {
-
 //    simulate network request or app loading
-    Future.delayed(Duration(seconds: 10), () {
-      Navigator.pushReplacementNamed(context, 'home');
+    Future.delayed(Duration(seconds: 5), () {
+      Navigator.pushReplacementNamed(context, 'register');
     });
   }
 
@@ -35,7 +32,8 @@ class _SplashState extends State<Splash> {
           ),
         ),
         child: Padding(
-          padding: EdgeInsets.only(top: (MediaQuery.of(context).size.height/2-40)),
+          padding: EdgeInsets.only(
+              top: (MediaQuery.of(context).size.height / 2 - 40)),
           child: Column(
             children: <Widget>[
               Container(
@@ -43,9 +41,8 @@ class _SplashState extends State<Splash> {
                 height: 120.0,
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage('assets/logo.png'),
-                    fit: BoxFit.contain
-                  ),
+                      image: AssetImage('assets/logo.png'),
+                      fit: BoxFit.contain),
                 ),
               ),
             ],

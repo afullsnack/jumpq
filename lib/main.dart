@@ -1,5 +1,7 @@
 //import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
+import 'package:jumpq/screens/pay_options.dart';
 import 'package:jumpq/screens/screens.dart';
 
 void main() => runApp(MaterialApp(
@@ -22,5 +24,6 @@ void main() => runApp(MaterialApp(
         'shop': (context) => Shop(
               title: 'Shop',
             ),
+        'pay_options': (context) => PayOptions(),
       },
     ));

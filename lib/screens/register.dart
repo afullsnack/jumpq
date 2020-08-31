@@ -267,69 +267,88 @@ class _RegisterState extends State<Register> {
 //      backgroundColor: Colors.grey[300],
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
+          SizedBox(
+            height: 105.0,
+          ),
           Text(
             '${widget.title}',
             style: TextStyle(
-              fontSize: 25.0,
+              fontSize: 45.0,
               color: Colors.deepOrangeAccent[700],
+              fontWeight: FontWeight.bold,
             ),
           ),
           SizedBox(height: 20.0),
-          Form(
-            key: _formKeyRegister,
-            child: Column(
-              children: <Widget>[
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          Expanded(
+            flex: 1,
+            child: Container(
+              child: Form(
+                key: _formKeyRegister,
+                child: Column(
                   children: <Widget>[
-                    _buildFirstName(),
-                    _buildLastName(),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Expanded(
+                          flex: 1,
+                          child: _buildFirstName(),
+                        ),
+                        SizedBox(width: 10.0),
+                        Expanded(
+                          flex: 1,
+                          child: _buildLastName(),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 10.0),
+                    _buildUserName(),
+                    SizedBox(height: 10.0),
+                    _buildEmail(),
+                    SizedBox(height: 10.0),
+                    _buildMobile(),
+                    SizedBox(height: 10.0),
+                    _buildPassword(),
+                    SizedBox(height: 10.0),
+                    _buildConfirmPass(),
+                    SizedBox(height: 15.0),
+                    RaisedButton(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                      ),
+                      color: Colors.deepOrangeAccent[700],
+                      child: Text(
+                        'Register',
+                      ),
+                      padding: EdgeInsets.symmetric(
+                        vertical: 10.0,
+                        horizontal: 60.0,
+                      ),
+                      onPressed: () {
+                        // if (!_formKeyRegister.currentState.validate()) {
+                        //   return;
+                        // }
+                        Navigator.pushReplacementNamed(context, 'login');
+
+                        // _formKeyRegister.currentState.save();
+
+                        // print(_firstname);
+                        // print(_lastname);
+                        // print(_username);
+                        // print(_email);
+                        // print(_mobile);
+                        // print(_password);
+                        // print(_confirmPass);
+                      },
+                    ),
+                    SizedBox(height: 10.0),
+                    Text('By signing up you agree to our terms and conditions'),
+                    SizedBox(height: 24.0),
+                    Text('Already have an account? Login'),
                   ],
                 ),
-                SizedBox(height: 10.0),
-                _buildUserName(),
-                SizedBox(height: 10.0),
-                _buildEmail(),
-                SizedBox(height: 10.0),
-                _buildMobile(),
-                SizedBox(height: 10.0),
-                _buildPassword(),
-                SizedBox(height: 10.0),
-                _buildConfirmPass(),
-                SizedBox(height: 15.0),
-                RaisedButton(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20.0),
-                  ),
-                  color: Colors.deepOrangeAccent[700],
-                  child: Text(
-                    'Register',
-                  ),
-                  padding:
-                      EdgeInsets.symmetric(vertical: 10.0, horizontal: 60.0),
-                  onPressed: () {
-                    // if (!_formKeyRegister.currentState.validate()) {
-                    //   return;
-                    // }
-                    Navigator.pushReplacementNamed(context, 'login');
-
-                    _formKeyRegister.currentState.save();
-
-                    print(_firstname);
-                    print(_lastname);
-                    print(_username);
-                    print(_email);
-                    print(_mobile);
-                    print(_password);
-                    print(_confirmPass);
-                  },
-                ),
-                SizedBox(height: 10.0),
-                Text('By signing up you agree to our terms and conditions'),
-                SizedBox(height: 24.0),
-                Text('Already have an account? Login'),
-              ],
+              ),
             ),
           ),
         ],

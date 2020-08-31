@@ -92,50 +92,57 @@ class _LoginState extends State<Login> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
+          SizedBox(height: 105.0),
           Text(
             '${widget.title}',
             style: TextStyle(
-              fontSize: 25.0,
+              fontSize: 45.0,
               color: Colors.deepOrangeAccent[700],
+              fontWeight: FontWeight.bold,
             ),
           ),
           SizedBox(height: 20.0),
-          Form(
-            key: _formKeyLogin,
-            child: Column(
-              children: <Widget>[
-                _buildUserName(),
-                SizedBox(height: 10.0),
-                _buildPassword(),
-                SizedBox(height: 15.0),
-                RaisedButton(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20.0),
-                  ),
-                  color: Colors.deepOrangeAccent[700],
-                  child: Text(
-                    'Login',
-                  ),
-                  padding:
-                      EdgeInsets.symmetric(vertical: 10.0, horizontal: 60.0),
-                  onPressed: () {
-                    // if (!_formKeyLogin.currentState.validate()) {
-                    //   return;
-                    // }
+          Expanded(
+            flex: 1,
+            child: Container(
+              child: Form(
+                key: _formKeyLogin,
+                child: Column(
+                  children: <Widget>[
+                    _buildUserName(),
+                    SizedBox(height: 10.0),
+                    _buildPassword(),
+                    SizedBox(height: 15.0),
+                    RaisedButton(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                      ),
+                      color: Colors.deepOrangeAccent[700],
+                      child: Text(
+                        'Login',
+                      ),
+                      padding: EdgeInsets.symmetric(
+                          vertical: 10.0, horizontal: 60.0),
+                      onPressed: () {
+                        // if (!_formKeyLogin.currentState.validate()) {
+                        //   return;
+                        // }
 
-                    Navigator.pushReplacementNamed(context, 'home');
+                        Navigator.pushReplacementNamed(context, 'home');
 
-                    _formKeyLogin.currentState.save();
+                        // _formKeyLogin.currentState.save();
 
-                    print(_username);
-                    print(_password);
-                  },
+                        // print(_username);
+                        // print(_password);
+                      },
+                    ),
+                    SizedBox(height: 10.0),
+                    Text('Can\'t login? Forgot password'),
+                    SizedBox(height: 24.0),
+                    Text("Don't have an account? Login"),
+                  ],
                 ),
-                SizedBox(height: 10.0),
-                Text('Can\'t login? Forgot password'),
-                SizedBox(height: 24.0),
-                Text("Don't have an account? Login"),
-              ],
+              ),
             ),
           ),
         ],

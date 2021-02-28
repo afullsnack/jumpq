@@ -284,6 +284,7 @@ class _RegisterState extends State<Register> {
           Expanded(
             flex: 1,
             child: Container(
+              padding: EdgeInsets.only(left: 10.0, right: 10.0),
               child: Form(
                 key: _formKeyRegister,
                 child: Column(
@@ -320,6 +321,7 @@ class _RegisterState extends State<Register> {
                       color: Colors.deepOrangeAccent[700],
                       child: Text(
                         'Register',
+                        style: TextStyle(color: Colors.white),
                       ),
                       padding: EdgeInsets.symmetric(
                         vertical: 10.0,

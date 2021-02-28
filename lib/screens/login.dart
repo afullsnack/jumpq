@@ -105,6 +105,7 @@ class _LoginState extends State<Login> {
           Expanded(
             flex: 1,
             child: Container(
+              padding: EdgeInsets.only(left: 10.0, right: 10.0),
               child: Form(
                 key: _formKeyLogin,
                 child: Column(
@@ -120,6 +121,7 @@ class _LoginState extends State<Login> {
                       color: Colors.deepOrangeAccent[700],
                       child: Text(
                         'Login',
+                        style: TextStyle(color: Colors.white),
                       ),
                       padding: EdgeInsets.symmetric(
                           vertical: 10.0, horizontal: 60.0),

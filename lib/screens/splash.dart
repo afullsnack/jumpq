@@ -9,7 +9,7 @@ class _SplashState extends State<Splash> {
   void getData() {
 //    simulate network request or app loading
     Future.delayed(Duration(seconds: 5), () {
-      Navigator.pushReplacementNamed(context, 'register');
+      Navigator.pushReplacementNamed(context, 'login');
     });
   }
 

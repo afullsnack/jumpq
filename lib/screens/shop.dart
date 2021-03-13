@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jumpq/widgets/widgets.dart';
+import 'package:barcode_scan/barcode_scan.dart';
 
 class Shop extends StatefulWidget {
   Shop({Key key, this.title}) : super(key: key);
@@ -19,10 +20,18 @@ class _ShopState extends State<Shop> {
     super.dispose();
   }
 
+  void scan() async {
+    var result = await BarcodeScanner.scan();
+    print(result.type);
+    print(result.rawContent);
+    print(result.format);
+    print(result.formatNote);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-//      backgroundColor: Colors.grey[300],
+      //backgroundColor: Colors.grey[300],
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
@@ -43,7 +52,11 @@ class _ShopState extends State<Shop> {
                     height: 20.0,
                   ),
                   GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      print('Scan entry tapped!');
+                      scan();
+                      // Navigator.pushNamed(context, 'scan_code');
+                    },
                     child: Container(
                       height: 190.0,
                       width: 190.0,

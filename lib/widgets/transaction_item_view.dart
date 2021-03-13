@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 // import 'package:flutter/services.dart';
-import 'package:jumpq/services/transaction_item.dart';
+import 'package:jumpq/models/index.dart';
 
 class TransactionItemView extends StatelessWidget {
   TransactionItemView({this.item, this.removeItem});

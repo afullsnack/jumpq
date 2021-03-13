@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:jumpq/services/services.dart';
+import 'package:jumpq/models/index.dart';
 import 'package:jumpq/widgets/widgets.dart';
 
 class Cart extends StatefulWidget {

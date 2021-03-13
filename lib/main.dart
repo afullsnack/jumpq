@@ -28,5 +28,6 @@ void main() => runApp(MaterialApp(
               title: 'Shop',
             ),
         'pay_options': (context) => PayOptions(),
+        // 'scan_code': (context) => QRViewExample(),
       },
     ));

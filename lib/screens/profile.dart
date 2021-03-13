@@ -20,202 +20,160 @@ class _ProfileState extends State<Profile> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   Widget _buildUsername() {
-    return TextFormField(
-      keyboardType: TextInputType.text,
-      readOnly: true,
-      showCursor: true,
-      cursorColor: Colors.deepOrangeAccent[700],
-      decoration: InputDecoration(
-        // labelText: 'USERNAME',
-        contentPadding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 20.0),
-        enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(width: 0.0),
-          borderRadius: BorderRadius.circular(20.0),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('USERNAME :'),
+        SizedBox(height: 8.0),
+        TextFormField(
+          cursorColor: Colors.black,
+          decoration: InputDecoration(
+            contentPadding: EdgeInsets.only(left: 20.0),
+            border: OutlineInputBorder(
+              borderSide: BorderSide.none,
+              borderRadius: BorderRadius.circular(30),
+            ),
+            filled: true,
+            fillColor: Colors.blueGrey[100].withOpacity(.5),
+          ),
+          validator: (String value) {
+            if (value.isEmpty) {
+              return 'Username is required';
+            }
+            return '';
+          },
+          onSaved: (String value) {
+            _username = value;
+          },
         ),
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(width: 0.0),
-          borderRadius: BorderRadius.circular(20.0),
-        ),
-        focusedErrorBorder: OutlineInputBorder(
-          borderSide: BorderSide(width: 0.0),
-          borderRadius: BorderRadius.circular(20.0),
-        ),
-        errorBorder: OutlineInputBorder(
-          borderSide: BorderSide(width: 0.0),
-          borderRadius: BorderRadius.circular(20.0),
-        ),
-        filled: true,
-        fillColor: Colors.grey[300],
-      ),
-      validator: (String value) {
-        if (value.isEmpty) {
-          return 'Username is required';
-        }
-        return '';
-      },
-      onSaved: (String value) {
-        _username = value;
-      },
+      ],
     );
   }
 
   Widget _buildEmail() {
-    return TextFormField(
-      keyboardType: TextInputType.emailAddress,
-      readOnly: true,
-      showCursor: true,
-      cursorColor: Colors.deepOrangeAccent[700],
-      decoration: InputDecoration(
-        // labelText: 'EMAIL',
-        contentPadding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 20.0),
-        enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(width: 0.0),
-          borderRadius: BorderRadius.circular(20.0),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('EMAIL :'),
+        SizedBox(height: 8.0),
+        TextFormField(
+          cursorColor: Colors.black,
+          decoration: InputDecoration(
+            contentPadding: EdgeInsets.only(left: 20.0),
+            border: OutlineInputBorder(
+              borderSide: BorderSide.none,
+              borderRadius: BorderRadius.circular(30),
+            ),
+            filled: true,
+            fillColor: Colors.blueGrey[100].withOpacity(.5),
+          ),
+          validator: (String value) {
+            if (value.isEmpty) {
+              return 'Email is required';
+            }
+            return '';
+          },
+          onSaved: (String value) {
+            _email = value;
+          },
         ),
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(width: 0.0),
-          borderRadius: BorderRadius.circular(20.0),
-        ),
-        focusedErrorBorder: OutlineInputBorder(
-          borderSide: BorderSide(width: 0.0),
-          borderRadius: BorderRadius.circular(20.0),
-        ),
-        errorBorder: OutlineInputBorder(
-          borderSide: BorderSide(width: 0.0),
-          borderRadius: BorderRadius.circular(20.0),
-        ),
-        filled: true,
-        fillColor: Colors.grey[300],
-      ),
-      validator: (String value) {
-        if (value.isEmpty) {
-          return 'Email is required';
-        }
-        return '';
-      },
-      onSaved: (String value) {
-        _email = value;
-      },
+      ],
     );
   }
 
   Widget _buildMobile() {
-    return TextFormField(
-      keyboardType: TextInputType.phone,
-      readOnly: true,
-      showCursor: true,
-      cursorColor: Colors.deepOrangeAccent[700],
-      decoration: InputDecoration(
-        // labelText: 'MOBILE',
-        contentPadding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 20.0),
-        enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(width: 0.0),
-          borderRadius: BorderRadius.circular(20.0),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('MOBILE :'),
+        SizedBox(height: 8.0),
+        TextFormField(
+          cursorColor: Colors.black,
+          decoration: InputDecoration(
+            contentPadding: EdgeInsets.only(left: 20.0),
+            border: OutlineInputBorder(
+              borderSide: BorderSide.none,
+              borderRadius: BorderRadius.circular(30),
+            ),
+            filled: true,
+            fillColor: Colors.blueGrey[100].withOpacity(.5),
+          ),
+          validator: (String value) {
+            if (value.isEmpty) {
+              return 'Mobile is required';
+            }
+            return '';
+          },
+          onSaved: (String value) {
+            _mobile = value;
+          },
         ),
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(width: 0.0),
-          borderRadius: BorderRadius.circular(20.0),
-        ),
-        focusedErrorBorder: OutlineInputBorder(
-          borderSide: BorderSide(width: 0.0),
-          borderRadius: BorderRadius.circular(20.0),
-        ),
-        errorBorder: OutlineInputBorder(
-          borderSide: BorderSide(width: 0.0),
-          borderRadius: BorderRadius.circular(20.0),
-        ),
-        filled: true,
-        fillColor: Colors.grey[300],
-      ),
-      validator: (String value) {
-        if (value.isEmpty) {
-          return 'Mobile is required';
-        }
-        return '';
-      },
-      onSaved: (String value) {
-        _mobile = value;
-      },
+      ],
     );
   }
 
   Widget _buildPassword() {
-    return TextFormField(
-      keyboardType: TextInputType.visiblePassword,
-      readOnly: true,
-      showCursor: true,
-      cursorColor: Colors.deepOrangeAccent[700],
-      decoration: InputDecoration(
-        // labelText: 'PASSWORD',
-        contentPadding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 20.0),
-        enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(width: 0.0),
-          borderRadius: BorderRadius.circular(20.0),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('PASSWORD :'),
+        SizedBox(height: 8.0),
+        TextFormField(
+          cursorColor: Colors.black,
+          decoration: InputDecoration(
+            contentPadding: EdgeInsets.only(left: 20.0),
+            border: OutlineInputBorder(
+              borderSide: BorderSide.none,
+              borderRadius: BorderRadius.circular(30),
+            ),
+            filled: true,
+            fillColor: Colors.blueGrey[100].withOpacity(.5),
+          ),
+          validator: (String value) {
+            if (value.isEmpty) {
+              return 'Password is required';
+            }
+            return '';
+          },
+          onSaved: (String value) {
+            _password = value;
+          },
         ),
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(width: 0.0),
-          borderRadius: BorderRadius.circular(20.0),
-        ),
-        focusedErrorBorder: OutlineInputBorder(
-          borderSide: BorderSide(width: 0.0),
-          borderRadius: BorderRadius.circular(20.0),
-        ),
-        errorBorder: OutlineInputBorder(
-          borderSide: BorderSide(width: 0.0),
-          borderRadius: BorderRadius.circular(20.0),
-        ),
-        filled: true,
-        fillColor: Colors.grey[300],
-      ),
-      validator: (String value) {
-        if (value.isEmpty) {
-          return 'A strong password is required';
-        }
-        return '';
-      },
-      onSaved: (String value) {
-        _password = value;
-      },
+      ],
     );
   }
 
   Widget _buildConfirmPass() {
-    return TextFormField(
-      keyboardType: TextInputType.visiblePassword,
-      readOnly: true,
-      showCursor: true,
-      cursorColor: Colors.deepOrangeAccent[700],
-      decoration: InputDecoration(
-        // labelText: 'CONFIRM PASSWORD',
-        contentPadding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 20.0),
-        enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(width: 0.0),
-          borderRadius: BorderRadius.circular(20.0),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('CONFIRM PASSWORD :'),
+        SizedBox(height: 8.0),
+        TextFormField(
+          cursorColor: Colors.black12,
+          decoration: InputDecoration(
+            contentPadding: EdgeInsets.only(left: 20.0),
+            border: OutlineInputBorder(
+              borderSide: BorderSide.none,
+              borderRadius: BorderRadius.circular(40),
+            ),
+            filled: true,
+            fillColor: Colors.blueGrey[100].withOpacity(.5),
+          ),
+          validator: (String value) {
+            if (value.isEmpty) {
+              return 'You need to re-enter your password';
+            }
+            if (value != _password) {
+              return 'Please input the same password as above';
+            }
+            return '';
+          },
+          onSaved: (String value) {
+            _confirmPass = value;
+          },
         ),
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(width: 0.0),
-          borderRadius: BorderRadius.circular(20.0),
-        ),
-        errorBorder: OutlineInputBorder(
-          borderSide: BorderSide(width: 0.0),
-          borderRadius: BorderRadius.circular(20.0),
-        ),
-        focusedErrorBorder: OutlineInputBorder(
-          borderSide: BorderSide(width: 0.0),
-          borderRadius: BorderRadius.circular(20.0),
-        ),
-        filled: true,
-        fillColor: Colors.grey[300],
-      ),
-      validator: (String value) {
-        if (value.isEmpty) {
-          return 'You need to the same password as above';
-        }
-        return '';
-      },
-      onSaved: (String value) {
-        _confirmPass = value;
-      },
+      ],
     );
   }
 
@@ -241,21 +199,20 @@ class _ProfileState extends State<Profile> {
                 color: Colors.white,
                 shadowColor: Colors.grey,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12.0),
+                  borderRadius: BorderRadius.circular(20.0),
                 ),
                 child: Padding(
                   padding: const EdgeInsets.all(12.0),
                   child: Column(
                     children: <Widget>[
                       CircleAvatar(
-                        backgroundColor: Colors.white,
+                        radius: 70.0,
+                        backgroundColor: Colors.deepOrange,
                         child: Icon(
-                          Icons.account_circle,
+                          Icons.person,
                           size: 60.0,
-                          color: Colors.orangeAccent[700],
+                          color: Colors.white,
                         ),
-                        // backgroundImage: AssetImage('assets/logo.png'),
-                        radius: 40.0,
                       ),
                       Form(
                         key: _formKey,
@@ -263,58 +220,48 @@ class _ProfileState extends State<Profile> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Text('USERNAME'),
-                            SizedBox(
-                              height: 5.0,
-                            ),
+                            SizedBox(height: 10.0),
                             _buildUsername(),
-                            Text('EMAIL'),
-                            SizedBox(
-                              height: 5.0,
-                            ),
+                            SizedBox(height: 10.0),
                             _buildEmail(),
-                            Text('MOBILE'),
-                            SizedBox(
-                              height: 5.0,
-                            ),
+                            SizedBox(height: 10.0),
                             _buildMobile(),
-                            Text('PASSWORD'),
-                            SizedBox(
-                              height: 5.0,
-                            ),
+                            SizedBox(height: 10.0),
                             _buildPassword(),
-                            Text('CONFIRM PASSWORD'),
-                            SizedBox(
-                              height: 5.0,
-                            ),
+                            SizedBox(height: 10.0),
                             _buildConfirmPass(),
+                            SizedBox(height: 20.0),
                             SizedBox(
-                              height: 10.0,
-                            ),
-                            RaisedButton(
-                              child: Text('SAVE'),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20.0),
-                              ),
-                              color: Colors.orangeAccent[700],
-                              textColor: Colors.white,
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 75.0,
-                                vertical: 10.0,
-                              ),
-                              onPressed: () {
-                                if (!_formKey.currentState.validate()) {
-                                  return;
-                                }
+                              width: double.infinity,
+                              height: 55.0,
+                              child: RaisedButton(
+                                child: Text(
+                                  'SAVE',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                ),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(30.0),
+                                ),
+                                color: Colors.deepOrange,
+                                textColor: Colors.white,
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 75.0,
+                                  vertical: 10.0,
+                                ),
+                                onPressed: () {
+                                  if (!_formKey.currentState.validate()) {
+                                    return;
+                                  }
 
-                                _formKey.currentState.save();
+                                  _formKey.currentState.save();
 
-                                print(_username);
-                                print(_email);
-                                print(_mobile);
-                                print(_password);
-                                print(_confirmPass);
-                              },
+                                  print(_username);
+                                  print(_email);
+                                  print(_mobile);
+                                  print(_password);
+                                  print(_confirmPass);
+                                },
+                              ),
                             ),
                           ],
                         ),

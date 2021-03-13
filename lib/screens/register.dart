@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class Register extends StatefulWidget {
   Register({Key key, this.title}) : super(key: key);
@@ -19,272 +22,277 @@ class _RegisterState extends State<Register> {
 
   final GlobalKey<FormState> _formKeyRegister = GlobalKey<FormState>();
 
+  void register(Map userData) async {
+    var url = 'https://myjumpq.net/api/user/register';
+    var response = await http.post(url, body: userData);
+
+    if (response.statusCode == 300) {
+      dynamic res = jsonDecode(response.body);
+      print(res['errors']);
+      return;
+    }
+
+    if (response.statusCode == 200) {
+      dynamic res = jsonDecode(response.body);
+      print('message: ${res['message']}');
+      // print('user: ${res['user']}');
+
+      Navigator.pushReplacementNamed(context, 'home');
+    }
+  }
+
   // build methods for all the TextFormField
   Widget _buildFirstName() {
-    return TextFormField(
-      decoration: InputDecoration(
-        filled: true,
-        fillColor: Colors.grey[300],
-        enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(width: 0.0),
-          borderRadius: BorderRadius.circular(20.0),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('FIRST NAME :'),
+        SizedBox(height: 8.0),
+        TextFormField(
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          cursorColor: Colors.black,
+          decoration: InputDecoration(
+            contentPadding: EdgeInsets.only(left: 14.0),
+            border: OutlineInputBorder(
+              borderSide: BorderSide.none,
+              borderRadius: BorderRadius.circular(30),
+            ),
+            filled: true,
+            fillColor: Colors.blueGrey[100].withOpacity(.5),
+          ),
+          validator: (String value) {
+            if (value.isEmpty) {
+              return 'First name is required';
+            }
+            return null;
+          },
+          onSaved: (String value) {
+            _firstname = value;
+          },
         ),
-        errorBorder: OutlineInputBorder(
-          borderSide: BorderSide(width: 0.0),
-          borderRadius: BorderRadius.circular(20.0),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(width: 0.0),
-          borderRadius: BorderRadius.circular(20.0),
-        ),
-        focusedErrorBorder: OutlineInputBorder(
-          borderSide: BorderSide(width: 0.0),
-          borderRadius: BorderRadius.circular(20.0),
-        ),
-      ),
-      validator: (String value) {
-        if (value.isEmpty) {
-          return 'First name is required';
-        }
-        return '';
-      },
-      onSaved: (String value) {
-        _firstname = value;
-      },
+      ],
     );
   }
 
   Widget _buildLastName() {
-    return TextFormField(
-      decoration: InputDecoration(
-        filled: true,
-        fillColor: Colors.grey[300],
-        enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(width: 0.0),
-          borderRadius: BorderRadius.circular(20.0),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('LAST NAME :'),
+        SizedBox(height: 8.0),
+        TextFormField(
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          cursorColor: Colors.black,
+          decoration: InputDecoration(
+            contentPadding: EdgeInsets.only(left: 14.0),
+            border: OutlineInputBorder(
+              borderSide: BorderSide.none,
+              borderRadius: BorderRadius.circular(30),
+            ),
+            filled: true,
+            fillColor: Colors.blueGrey[100].withOpacity(.5),
+          ),
+          validator: (String value) {
+            if (value.isEmpty) {
+              return 'Last name is required';
+            }
+            return null;
+          },
+          onSaved: (String value) {
+            _lastname = value;
+          },
         ),
-        errorBorder: OutlineInputBorder(
-          borderSide: BorderSide(width: 0.0),
-          borderRadius: BorderRadius.circular(20.0),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(width: 0.0),
-          borderRadius: BorderRadius.circular(20.0),
-        ),
-        focusedErrorBorder: OutlineInputBorder(
-          borderSide: BorderSide(width: 0.0),
-          borderRadius: BorderRadius.circular(20.0),
-        ),
-      ),
-      validator: (String value) {
-        if (value.isEmpty) {
-          return 'Last name is required';
-        }
-        return '';
-      },
-      onSaved: (String value) {
-        _lastname = value;
-      },
+      ],
     );
   }
 
   Widget _buildUserName() {
-    return TextFormField(
-      decoration: InputDecoration(
-        filled: true,
-        fillColor: Colors.grey[300],
-        enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(width: 0.0),
-          borderRadius: BorderRadius.circular(20.0),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('USERNAME :'),
+        SizedBox(height: 8.0),
+        TextFormField(
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          cursorColor: Colors.black,
+          decoration: InputDecoration(
+            contentPadding: EdgeInsets.only(left: 20.0),
+            border: OutlineInputBorder(
+              borderSide: BorderSide.none,
+              borderRadius: BorderRadius.circular(30),
+            ),
+            filled: true,
+            fillColor: Colors.blueGrey[100].withOpacity(.5),
+          ),
+          validator: (String value) {
+            if (value.isEmpty) {
+              return 'Username is required';
+            }
+            return null;
+          },
+          onSaved: (String value) {
+            _username = value;
+          },
         ),
-        errorBorder: OutlineInputBorder(
-          borderSide: BorderSide(width: 0.0),
-          borderRadius: BorderRadius.circular(20.0),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(width: 0.0),
-          borderRadius: BorderRadius.circular(20.0),
-        ),
-        focusedErrorBorder: OutlineInputBorder(
-          borderSide: BorderSide(width: 0.0),
-          borderRadius: BorderRadius.circular(20.0),
-        ),
-      ),
-      validator: (String value) {
-        if (value.isEmpty) {
-          return 'Username is required';
-        }
-        return '';
-      },
-      onSaved: (String value) {
-        _username = value;
-      },
+      ],
     );
   }
 
   Widget _buildEmail() {
-    return TextFormField(
-      decoration: InputDecoration(
-        filled: true,
-        fillColor: Colors.grey[300],
-        enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(width: 0.0),
-          borderRadius: BorderRadius.circular(20.0),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('EMAIL :'),
+        SizedBox(height: 8.0),
+        TextFormField(
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          cursorColor: Colors.black,
+          decoration: InputDecoration(
+            contentPadding: EdgeInsets.only(left: 20.0),
+            border: OutlineInputBorder(
+              borderSide: BorderSide.none,
+              borderRadius: BorderRadius.circular(30),
+            ),
+            filled: true,
+            fillColor: Colors.blueGrey[100].withOpacity(.5),
+          ),
+          validator: (String value) {
+            if (value.isEmpty) {
+              return 'Email is required';
+            }
+            return null;
+          },
+          onSaved: (String value) {
+            _email = value;
+          },
         ),
-        errorBorder: OutlineInputBorder(
-          borderSide: BorderSide(width: 0.0),
-          borderRadius: BorderRadius.circular(20.0),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(width: 0.0),
-          borderRadius: BorderRadius.circular(20.0),
-        ),
-        focusedErrorBorder: OutlineInputBorder(
-          borderSide: BorderSide(width: 0.0),
-          borderRadius: BorderRadius.circular(20.0),
-        ),
-      ),
-      validator: (String value) {
-        if (value.isEmpty) {
-          return 'Email is required';
-        }
-        return '';
-      },
-      onSaved: (String value) {
-        _email = value;
-      },
+      ],
     );
   }
 
   Widget _buildMobile() {
-    return TextFormField(
-      decoration: InputDecoration(
-        filled: true,
-        fillColor: Colors.grey[300],
-        enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(width: 0.0),
-          borderRadius: BorderRadius.circular(20.0),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('MOBILE :'),
+        SizedBox(height: 8.0),
+        TextFormField(
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          cursorColor: Colors.black,
+          decoration: InputDecoration(
+            contentPadding: EdgeInsets.only(left: 20.0),
+            border: OutlineInputBorder(
+              borderSide: BorderSide.none,
+              borderRadius: BorderRadius.circular(30),
+            ),
+            filled: true,
+            fillColor: Colors.blueGrey[100].withOpacity(.5),
+          ),
+          validator: (String value) {
+            if (value.isEmpty) {
+              return 'Mobile is required';
+            }
+            return null;
+          },
+          onSaved: (String value) {
+            _mobile = value;
+          },
         ),
-        errorBorder: OutlineInputBorder(
-          borderSide: BorderSide(width: 0.0),
-          borderRadius: BorderRadius.circular(20.0),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(width: 0.0),
-          borderRadius: BorderRadius.circular(20.0),
-        ),
-        focusedErrorBorder: OutlineInputBorder(
-          borderSide: BorderSide(width: 0.0),
-          borderRadius: BorderRadius.circular(20.0),
-        ),
-      ),
-      validator: (String value) {
-        if (value.isEmpty) {
-          return 'Mobile is required';
-        }
-        return '';
-      },
-      onSaved: (String value) {
-        _mobile = value;
-      },
+      ],
     );
   }
 
   Widget _buildPassword() {
-    return TextFormField(
-      decoration: InputDecoration(
-        filled: true,
-        fillColor: Colors.grey[300],
-        enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(width: 0.0),
-          borderRadius: BorderRadius.circular(20.0),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('PASSWORD :'),
+        SizedBox(height: 8.0),
+        TextFormField(
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          cursorColor: Colors.black,
+          decoration: InputDecoration(
+            contentPadding: EdgeInsets.only(left: 20.0),
+            border: OutlineInputBorder(
+              borderSide: BorderSide.none,
+              borderRadius: BorderRadius.circular(30),
+            ),
+            filled: true,
+            fillColor: Colors.blueGrey[100].withOpacity(.5),
+          ),
+          validator: (String value) {
+            if (value.isEmpty) {
+              return 'Password is required';
+            }
+            return null;
+          },
+          onSaved: (String value) {
+            _password = value;
+          },
         ),
-        errorBorder: OutlineInputBorder(
-          borderSide: BorderSide(width: 0.0),
-          borderRadius: BorderRadius.circular(20.0),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(width: 0.0),
-          borderRadius: BorderRadius.circular(20.0),
-        ),
-        focusedErrorBorder: OutlineInputBorder(
-          borderSide: BorderSide(width: 0.0),
-          borderRadius: BorderRadius.circular(20.0),
-        ),
-      ),
-      validator: (String value) {
-        if (value.isEmpty) {
-          return 'Password is required';
-        }
-        return '';
-      },
-      onSaved: (String value) {
-        _password = value;
-      },
+      ],
     );
   }
 
   Widget _buildConfirmPass() {
-    return TextFormField(
-      decoration: InputDecoration(
-        filled: true,
-        fillColor: Colors.grey[300],
-        enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(width: 0.0),
-          borderRadius: BorderRadius.circular(20.0),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('CONFIRM PASSWORD :'),
+        SizedBox(height: 8.0),
+        TextFormField(
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          cursorColor: Colors.black12,
+          decoration: InputDecoration(
+            contentPadding: EdgeInsets.only(left: 20.0),
+            border: OutlineInputBorder(
+              borderSide: BorderSide.none,
+              borderRadius: BorderRadius.circular(40),
+            ),
+            filled: true,
+            fillColor: Colors.blueGrey[100].withOpacity(.5),
+          ),
+          validator: (String value) {
+            if (value.isEmpty) {
+              return 'You need to re-enter your password';
+            }
+            if (value != _password) {
+              return 'Please input the same password as above';
+            }
+            return null;
+          },
+          onSaved: (String value) {
+            _confirmPass = value;
+          },
         ),
-        errorBorder: OutlineInputBorder(
-          borderSide: BorderSide(width: 0.0),
-          borderRadius: BorderRadius.circular(20.0),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(width: 0.0),
-          borderRadius: BorderRadius.circular(20.0),
-        ),
-        focusedErrorBorder: OutlineInputBorder(
-          borderSide: BorderSide(width: 0.0),
-          borderRadius: BorderRadius.circular(20.0),
-        ),
-      ),
-      validator: (String value) {
-        if (value.isEmpty) {
-          return 'You need to re-enter your password';
-        }
-        if (value != _password) {
-          return 'Please input the same password as above';
-        }
-        return '';
-      },
-      onSaved: (String value) {
-        _confirmPass = value;
-      },
+      ],
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-//      backgroundColor: Colors.grey[300],
+      backgroundColor: Colors.white,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          SizedBox(
-            height: 105.0,
-          ),
-          Text(
-            '${widget.title}',
-            style: TextStyle(
-              fontSize: 45.0,
-              color: Colors.deepOrangeAccent[700],
-              fontWeight: FontWeight.bold,
+          Padding(
+            padding: EdgeInsets.only(left: 20.0, top: 50.0, bottom: 20.0),
+            child: Text(
+              '${widget.title}',
+              style: TextStyle(
+                fontSize: 40.0,
+                color: Colors.deepOrange,
+                fontWeight: FontWeight.normal,
+              ),
             ),
           ),
           SizedBox(height: 20.0),
           Expanded(
             flex: 1,
             child: Container(
-              padding: EdgeInsets.only(left: 10.0, right: 10.0),
+              padding: EdgeInsets.only(left: 20.0, right: 20.0),
               child: Form(
                 key: _formKeyRegister,
                 child: Column(
@@ -303,46 +311,59 @@ class _RegisterState extends State<Register> {
                         ),
                       ],
                     ),
-                    SizedBox(height: 10.0),
-                    _buildUserName(),
-                    SizedBox(height: 10.0),
-                    _buildEmail(),
-                    SizedBox(height: 10.0),
-                    _buildMobile(),
-                    SizedBox(height: 10.0),
-                    _buildPassword(),
-                    SizedBox(height: 10.0),
-                    _buildConfirmPass(),
                     SizedBox(height: 15.0),
-                    RaisedButton(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20.0),
-                      ),
-                      color: Colors.deepOrangeAccent[700],
-                      child: Text(
-                        'Register',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      padding: EdgeInsets.symmetric(
-                        vertical: 10.0,
-                        horizontal: 60.0,
-                      ),
-                      onPressed: () {
-                        // if (!_formKeyRegister.currentState.validate()) {
-                        //   return;
-                        // }
-                        Navigator.pushReplacementNamed(context, 'login');
+                    _buildUserName(),
+                    SizedBox(height: 15.0),
+                    _buildEmail(),
+                    SizedBox(height: 15.0),
+                    _buildMobile(),
+                    SizedBox(height: 15.0),
+                    _buildPassword(),
+                    SizedBox(height: 15.0),
+                    _buildConfirmPass(),
+                    SizedBox(height: 20.0),
+                    SizedBox(
+                      width: double.infinity,
+                      height: 55.0,
+                      child: RaisedButton(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30.0),
+                        ),
+                        color: Colors.deepOrange,
+                        child: Text(
+                          'Register',
+                          style: TextStyle(
+                            fontSize: 20.0,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        onPressed: () {
+                          if (!_formKeyRegister.currentState.validate()) {
+                            return;
+                          }
 
-                        // _formKeyRegister.currentState.save();
+                          _formKeyRegister.currentState.save();
 
-                        // print(_firstname);
-                        // print(_lastname);
-                        // print(_username);
-                        // print(_email);
-                        // print(_mobile);
-                        // print(_password);
-                        // print(_confirmPass);
-                      },
+                          register({
+                            'firstname': _firstname,
+                            'lastname': _lastname,
+                            'username': _username,
+                            'email': _email,
+                            'phone': _mobile,
+                            'password': _password,
+                            'password_confirmation': _confirmPass
+                          });
+
+                          print(_firstname);
+                          print(_lastname);
+                          print(_username);
+                          print(_email);
+                          print(_mobile);
+                          print(_password);
+                          print(_confirmPass);
+                        },
+                      ),
                     ),
                     SizedBox(height: 10.0),
                     Text('By signing up you agree to our terms and conditions'),

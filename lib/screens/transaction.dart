@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jumpq/widgets/widgets.dart';
-import 'package:jumpq/services/services.dart';
+import 'package:jumpq/models/index.dart';
 
 class Transaction extends StatefulWidget {
   Transaction({Key key, this.title}) : super(key: key);

@@ -9,6 +9,8 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    dynamic args = ModalRoute.of(context).settings.arguments;
+
     return Scaffold(
 //      backgroundColor: Colors.deepOrange[700],
       body: Column(
@@ -57,9 +59,10 @@ class Home extends StatelessWidget {
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
-                                    Text('John Doe'),
-                                    Text('johndoe@gmil.com'),
-                                    Text('+234 9081146028'),
+                                    Text(
+                                        '${args['firstname']} ${args['lastname']}'),
+                                    Text('${args['email']}'),
+                                    Text('${args['phone']}'),
                                   ],
                                 ),
                               ],

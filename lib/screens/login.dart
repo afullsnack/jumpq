@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'dart:convert';
-import 'package:http/http.dart' as http;
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:jumpq/state/login_provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Login extends StatefulWidget {
   Login({Key key, this.title}) : super(key: key);
@@ -16,22 +17,28 @@ class _LoginState extends State<Login> {
 
   final GlobalKey<FormState> _formKeyLogin = GlobalKey<FormState>();
 
-  void login(Map userData) async {
-    var url = 'https://myjumpq.net/api/user/login';
-    var response = await http.post(url, body: userData);
+  void initState() {
+    super.initState();
+    isUserLoggedIn();
+  }
 
-    if (response.statusCode == 300) {
-      dynamic res = jsonDecode(response.body);
-      print(res['errors']);
-      return;
-    }
-
-    if (response.statusCode == 200) {
-      Map<String, dynamic> res = jsonDecode(response.body);
-      print('message: ${res['message']}');
-      print('user: ${res['user']}');
-
-      Navigator.pushReplacementNamed(context, 'home', arguments: res['user']);
+  Future isUserLoggedIn() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool isLoggedIn = prefs.get('isLoggedIn');
+    final user = new Map<String, dynamic>();
+    try {
+      if (isLoggedIn != null && isLoggedIn) {
+        user['username'] = prefs.getString('username');
+        user['firstname'] = prefs.getString('firstname');
+        user['lastname'] = prefs.getString('lastname');
+        user['email'] = prefs.getString('email');
+        user['phone'] = prefs.getString('phone');
+        Navigator.pushNamedAndRemoveUntil(context, 'home', (route) => false,
+            arguments: user);
+      } else
+        return;
+    } catch (e) {
+      throw Exception(e.toString());
     }
   }
 
@@ -106,77 +113,114 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     return Scaffold(
 //      backgroundColor: Colors.grey[300],
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Padding(
-            padding: EdgeInsets.only(left: 20.0, top: 50.0, bottom: 20.0),
-            child: Text(
-              '${widget.title}',
-              style: TextStyle(
-                fontSize: 40.0,
-                color: Colors.deepOrange,
-                fontWeight: FontWeight.normal,
-              ),
-            ),
+      body: Container(
+        width: double.infinity,
+        height: double.infinity,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/splash_bg.jpg'),
+            fit: BoxFit.cover,
           ),
-          SizedBox(height: 20.0),
-          Expanded(
-            flex: 1,
-            child: Container(
-              padding: EdgeInsets.only(left: 20.0, right: 20.0),
-              child: Form(
-                key: _formKeyLogin,
-                child: Column(
-                  children: <Widget>[
-                    _buildUserName(),
-                    SizedBox(height: 15.0),
-                    _buildPassword(),
-                    SizedBox(height: 20.0),
-                    SizedBox(
-                      width: double.infinity,
-                      height: 55.0,
-                      child: RaisedButton(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30.0),
-                        ),
-                        color: Colors.deepOrange,
-                        child: Text(
-                          'Login',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20.0,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        onPressed: () {
-                          if (!_formKeyLogin.currentState.validate()) {
-                            return;
-                          }
-
-                          _formKeyLogin.currentState.save();
-
-                          login({
-                            'username': _username,
-                            'password': _password,
-                          });
-
-                          print(_username);
-                          print(_password);
-                        },
-                      ),
-                    ),
-                    SizedBox(height: 10.0),
-                    Text('Can\'t login? Forgot Password'),
-                    SizedBox(height: 24.0),
-                    Text("Don't have an account? Register"),
-                  ],
+        ),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            // crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Container(
+                width: 120.0,
+                height: 120.0,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('assets/logo.png'),
+                    fit: BoxFit.contain,
+                    alignment: Alignment.topCenter,
+                    scale: 4.0,
+                  ),
                 ),
               ),
-            ),
+              SizedBox(
+                height: 10.0,
+              ),
+              Text(
+                '${widget.title}',
+                style: TextStyle(
+                  fontSize: 30.0,
+                  color: Colors.deepOrange,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(height: 20.0),
+              Container(
+                padding: EdgeInsets.only(left: 20.0, right: 20.0),
+                child: Form(
+                  key: _formKeyLogin,
+                  child: Column(
+                    children: <Widget>[
+                      _buildUserName(),
+                      SizedBox(height: 15.0),
+                      _buildPassword(),
+                      SizedBox(height: 20.0),
+                      SizedBox(
+                        width: double.infinity,
+                        height: 55.0,
+                        child: Consumer(builder: (context, watch, child) {
+                          // watch(loginProvider());
+                          return RaisedButton(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30.0),
+                            ),
+                            color: Colors.deepOrange,
+                            child: Text(
+                              'Login',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 20.0,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            onPressed: () async {
+                              if (!_formKeyLogin.currentState.validate()) {
+                                return;
+                              }
+
+                              _formKeyLogin.currentState.save();
+
+                              final asyncValue = context.read(loginProvider({
+                                'username': _username,
+                                'password': _password,
+                              }));
+
+                              final user = asyncValue.whenData((value) {
+                                print('Inside whenData function');
+                                print(value);
+                              });
+
+                              print('user $user');
+
+                              print(_username);
+                              print(_password);
+                              // Navigator.pushReplacementNamed(context, 'home',
+                              //     arguments: user);
+                            },
+                          );
+                        }),
+                      ),
+                      SizedBox(height: 10.0),
+                      RichText(
+                        text: TextSpan(text: 'Can\'t login? ', children: [
+                          TextSpan(text: 'Forgot Password'),
+                        ]),
+                      ),
+                      SizedBox(height: 24.0),
+                      Text("Don't have an account? Register"),
+                    ],
+                  ),
+                ),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }

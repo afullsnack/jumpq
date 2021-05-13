@@ -29,7 +29,7 @@ class _CartItemViewState extends State<CartItemView> {
                 height: 100,
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage('assets/logo.png'),
+                    image: NetworkImage(widget.item.imgUrl),
                     fit: BoxFit.cover,
                     alignment: Alignment.topCenter,
                   ),
@@ -61,13 +61,13 @@ class _CartItemViewState extends State<CartItemView> {
                           SizedBox(
                             height: 5,
                           ),
-                          Text(
-                            widget.item.color,
-                            style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 15.0,
-                            ),
-                          ),
+                          // Text(
+                          //   widget.item.color,
+                          //   style: TextStyle(
+                          //     fontWeight: FontWeight.w500,
+                          //     fontSize: 15.0,
+                          //   ),
+                          // ),
                         ],
                       ),
                       GestureDetector(

@@ -1,6 +1,7 @@
 import 'package:barcode_scan/barcode_scan.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:jumpq/network/cart_req.dart';
 import 'package:jumpq/widgets/widgets.dart';
 
 class Home extends StatelessWidget {
@@ -61,7 +62,8 @@ class Home extends StatelessWidget {
                                   mini: true,
                                   child: Icon(Icons.person),
                                   onPressed: () {
-                                    Navigator.pushNamed(context, 'profile');
+                                    Navigator.pushNamed(context, 'profile',
+                                        arguments: args);
                                   },
                                 ),
                                 SizedBox(
@@ -123,6 +125,8 @@ class Home extends StatelessWidget {
                                 ),
                                 onPressed: () {
                                   print('Move to profile');
+                                  Navigator.pushNamed(context, 'profile',
+                                      arguments: args);
                                 },
                               ),
                             ),
@@ -147,10 +151,18 @@ class Home extends StatelessWidget {
                               child: _activityBtn(
                                 () async {
                                   var result = await _shopDialog(context);
-                                  print('Dialog results: $result');
-                                  Navigator.pushNamed(context, 'shop');
+                                  if (result == null || result == '') {
+                                    print('An ID is required');
+                                    return;
+                                  } else {
+                                    print(result);
+                                    var data = await verifyBranchId(result);
+                                    Navigator.pushNamed(context, 'cart',
+                                        arguments: data);
+                                  }
+                                  // Navigator.pushNamed(context, 'shop');
                                 },
-                                'Shop',
+                                'Shop Products',
                                 Icons.store_outlined,
                               ),
                             ),
@@ -201,7 +213,8 @@ class Home extends StatelessWidget {
             '$title',
             style: TextStyle(
               fontWeight: FontWeight.w600,
-              fontSize: 22,
+              fontSize: 18,
+              letterSpacing: .5,
               color: Colors.white,
             ),
           ),
@@ -235,7 +248,7 @@ class Home extends StatelessWidget {
                 print(result.rawContent);
                 print(result.format);
                 print(result.formatNote);
-                Navigator.of(context).pop(result.type.toString());
+                Navigator.of(context).pop(result.rawContent.toString());
               },
             ),
             CupertinoDialogAction(

@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
 class Header extends StatelessWidget {
-
-  Header({ this.title, this.actionIcon });
+  Header({this.title, this.actionIcon});
 
   final String title;
   final Icon actionIcon;
@@ -34,7 +33,7 @@ class Header extends StatelessWidget {
                     'JumpQ',
                     style: TextStyle(
                       fontSize: 19.0,
-                      fontWeight: FontWeight.normal,
+                      fontWeight: FontWeight.w600,
                       color: Colors.white,
                     ),
                   ),
@@ -53,9 +52,11 @@ class Header extends StatelessWidget {
                           color: Colors.white,
                         ),
                       ),
-                      SizedBox(height: 8.0,),
+                      SizedBox(
+                        height: 8.0,
+                      ),
                       Text(
-                        '0001',
+                        '00000',
                         style: TextStyle(
                           fontSize: 16.0,
                           fontWeight: FontWeight.normal,
@@ -79,18 +80,20 @@ class Header extends StatelessWidget {
                 Expanded(
                   flex: 2,
                   child: Center(
-                      child: Text(
-                        '$title',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 24.0,
-                          letterSpacing: 1.0,
-                          fontWeight: FontWeight.bold,
-                        ),
+                    child: Text(
+                      '$title',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 24.0,
+                        letterSpacing: 1.0,
+                        fontWeight: FontWeight.bold,
                       ),
+                    ),
                   ),
                 ),
-                SizedBox(width: 70.0,),
+                SizedBox(
+                  width: 70.0,
+                ),
               ],
             ),
           ],

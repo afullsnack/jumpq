@@ -30,6 +30,8 @@ class _ShopState extends State<Shop> {
 
   @override
   Widget build(BuildContext context) {
+    // final branchData = ModalRoute.of(context).settings.arguments as Map;
+    // print(branchData);
     return Scaffold(
       //backgroundColor: Colors.grey[300],
       body: Column(

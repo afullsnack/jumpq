@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jumpq/models/index.dart';
+import 'package:jumpq/network/cart_req.dart';
 import 'package:jumpq/widgets/widgets.dart';
 
 class Cart extends StatefulWidget {
@@ -12,23 +13,36 @@ class Cart extends StatefulWidget {
 }
 
 class _CartState extends State<Cart> {
-  List<CartItem> cartItems = [
-    CartItem(
-        name: 'Sneakers jogging', color: 'Blue/White', price: '4,500', qty: 1),
-    CartItem(
-        name: 'Fashion sneakers', color: 'Blue/Grey', price: '3,500', qty: 1),
-    CartItem(
-        name: 'Fashion jacket', color: 'Dark Grey', price: '10,000', qty: 1),
-    CartItem(
-        name: 'Fashion sneakers', color: 'Pink/Grey', price: '4,550', qty: 1),
-    CartItem(
-        name: 'Fashion jacket', color: 'Dark Grey', price: '10,000', qty: 1),
-    CartItem(
-        name: 'Fashion sneakers', color: 'Blue/Grey', price: '3,500', qty: 1),
-  ];
+  List<CartItem> cartItems = [];
+
+  @override
+  void initState() {
+    // Get the initial data
+    _getCartData();
+    super.initState();
+  }
+
+  _getCartData() async {
+    var data = await getCartData();
+    print(data);
+    print('Inside getCartData');
+    data.map((item) => setState(() {
+          cartItems.add(
+            CartItem(
+              name: item["product"],
+              // color: 'Blue/White',
+              price: item["price"],
+              qty: item["quantity"],
+              imgUrl: item["thumbnail"]["location"],
+            ),
+          );
+        }));
+  }
 
   @override
   Widget build(BuildContext context) {
+    final branchData = ModalRoute.of(context).settings.arguments as Map;
+    print(branchData);
     return Scaffold(
 //      backgroundColor: Colors.deepOrange[700],
       body: Column(

@@ -19,13 +19,14 @@ class _ProfileState extends State<Profile> {
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  Widget _buildUsername() {
+  Widget _buildUsername(username) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text('USERNAME :'),
         SizedBox(height: 8.0),
         TextFormField(
+          initialValue: '$username',
           cursorColor: Colors.black,
           decoration: InputDecoration(
             contentPadding: EdgeInsets.only(left: 20.0),
@@ -50,13 +51,14 @@ class _ProfileState extends State<Profile> {
     );
   }
 
-  Widget _buildEmail() {
+  Widget _buildEmail(email) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text('EMAIL :'),
         SizedBox(height: 8.0),
         TextFormField(
+          initialValue: '$email',
           cursorColor: Colors.black,
           decoration: InputDecoration(
             contentPadding: EdgeInsets.only(left: 20.0),
@@ -81,13 +83,14 @@ class _ProfileState extends State<Profile> {
     );
   }
 
-  Widget _buildMobile() {
+  Widget _buildMobile(phone) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text('MOBILE :'),
         SizedBox(height: 8.0),
         TextFormField(
+          initialValue: '$phone',
           cursorColor: Colors.black,
           decoration: InputDecoration(
             contentPadding: EdgeInsets.only(left: 20.0),
@@ -179,6 +182,8 @@ class _ProfileState extends State<Profile> {
 
   @override
   Widget build(BuildContext context) {
+    final userdata = ModalRoute.of(context).settings.arguments as Map;
+    print(userdata);
     return Scaffold(
 //      backgroundColor: Colors.deepOrange[700],
       body: Column(
@@ -221,11 +226,11 @@ class _ProfileState extends State<Profile> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             SizedBox(height: 10.0),
-                            _buildUsername(),
+                            _buildUsername(userdata["username"]),
                             SizedBox(height: 10.0),
-                            _buildEmail(),
+                            _buildEmail(userdata["email"]),
                             SizedBox(height: 10.0),
-                            _buildMobile(),
+                            _buildMobile(userdata["phone"]),
                             SizedBox(height: 10.0),
                             _buildPassword(),
                             SizedBox(height: 10.0),

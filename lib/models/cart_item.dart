@@ -1,35 +1,57 @@
+import 'package:jumpq/models/index.dart';
+
 class CartItem {
-  String name;
-  // String color;
+  int id;
+  int productId;
+  String product;
+  String quantity;
+  String currency;
   String price;
-  int qty;
   String imgUrl;
 
   CartItem({
-    this.name,
-    // this.color,
+    this.id,
+    this.productId,
+    this.product,
+    this.quantity,
+    this.currency,
     this.price,
-    this.qty,
     this.imgUrl,
   });
 
 //  some functions to compute total qty and price will be defined
 
+// {
+//         "id": 133,
+//         "product_id": 28,
+//         "product": "PREPARE FOR WAR",
+//         "quantity": "1",
+//         "currency": "₦",
+//         "price": "201.00",
+//         "thumbnail": {
+//             "location": "https://myjumpq.net/product_image/thumbnail.jpg"
+//         }
+//     }
+
   CartItem.fromJson(Map<String, dynamic> json) {
-    this.name = json['name'];
-    // this.color = json['color'];
-    this.price = json['price'];
-    this.qty = json['qty'];
-    this.imgUrl = json['imgUrl'];
+    this.id = json["id"];
+    this.productId = json["produc_id"];
+    this.product = json["product"];
+    this.quantity = json["quantity"];
+    this.currency = json["currency"];
+    this.price = json["price"];
+    this.imgUrl = json["thumbnail"]["location"];
   }
 
   Map toJson() {
     final data = new Map<String, dynamic>();
-    data['name'] = this.name;
-    // data['color'] = this.color;
-    data['price'] = this.price;
-    data['qty'] = this.qty;
-    data['imgUrl'] = this.imgUrl;
+    data["id"] = this.id;
+    data["product_id"] = this.productId;
+    data["product"] = this.product;
+    data["quantity"] = this.quantity;
+    data["currency"] = this.currency;
+    data["price"] = this.price;
+    data["thumbnail"]["location"] = this.imgUrl;
 
     return data;
   }

@@ -23,26 +23,18 @@ class _CartState extends State<Cart> {
   }
 
   _getCartData() async {
-    var data = await getCartData();
-    print(data);
-    print('Inside getCartData');
-    data.map((item) => setState(() {
-          cartItems.add(
-            CartItem(
-              name: item["product"],
-              // color: 'Blue/White',
-              price: item["price"],
-              qty: item["quantity"],
-              imgUrl: item["thumbnail"]["location"],
-            ),
-          );
-        }));
+    var data = await fetchCart();
+    // print(data);
+    // print('Inside getCartData');
+    setState(() {
+      cartItems = data;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     final branchData = ModalRoute.of(context).settings.arguments as Map;
-    print(branchData);
+    // print(branchData);
     return Scaffold(
 //      backgroundColor: Colors.deepOrange[700],
       body: Column(
@@ -56,92 +48,88 @@ class _CartState extends State<Cart> {
             ),
           ),
           Expanded(
-            flex: 6,
-            child: Container(
+            flex: 1,
+            child: Card(
+              elevation: 6,
+              margin: EdgeInsets.all(10),
               child: Padding(
                 padding:
-                    const EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
-                child: ListView(
-                  scrollDirection: Axis.vertical,
-                  children: cartItems
-                      .map((item) => CartItemView(
-                            item: item,
-                            removeCartItem: () {
-                              setState(() {
-                                cartItems.remove(item);
-                              });
-                            },
-                          ))
-                      .toList(),
+                    const EdgeInsets.symmetric(horizontal: 18.0, vertical: 0.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Total Amount',
+                      style: TextStyle(
+                        fontSize: 17,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.black.withOpacity(.56),
+                      ),
+                    ),
+                    Text(
+                      'N 201.6',
+                      style: TextStyle(
+                        fontSize: 17,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.black.withOpacity(.56),
+                      ),
+                    )
+                  ],
                 ),
               ),
             ),
           ),
           Expanded(
-            flex: 1,
-            child: Container(
-              child: Padding(
-                padding: const EdgeInsets.all(18.0),
-                child: Column(
-//                mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget>[
-                    Container(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Text(
-                                'TOTAL',
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  color: Colors.grey[700].withOpacity(.6),
-                                ),
-                              ),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              Text(
-                                '#37,550.00',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.deepOrange[500],
-                                  fontSize: 21,
-                                ),
-                              ),
-                            ],
-                          ),
-                          FlatButton(
-                            color: Colors.deepOrange[500],
-                            textColor: Colors.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15.0),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 3.0, horizontal: 20.0),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  Text('CHECK OUT NOW'),
-                                  SizedBox(
-                                    width: 10.0,
-                                  ),
-                                  Icon(
-                                    Icons.arrow_forward,
-                                    color: Colors.white,
-                                  ),
-                                ],
-                              ),
-                            ),
-                            onPressed: () {},
-                          ),
-                        ],
-                      ),
+            flex: 9,
+            child: ListView(
+              shrinkWrap: false,
+              padding: EdgeInsets.all(0),
+              scrollDirection: Axis.vertical,
+              children: cartItems
+                  .map((item) => CartItemView(
+                        item: item,
+                        removeCartItem: () async {
+                          bool isDeleted = await deleteCartItem(item.id);
+                          isDeleted
+                              ? setState(() {
+                                  cartItems.remove(item);
+                                })
+                              : throw Exception(
+                                  'An error occured while trying to delete item');
+                        },
+                      ))
+                  .toList(),
+            ),
+          ),
+          Expanded(
+            flex: 2,
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  ElevatedButton(
+                    onPressed: () {},
+                    child: Text('CHECKOUT'),
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(Colors.green),
                     ),
-                  ],
-                ),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {},
+                    child: Icon(Icons.qr_code_sharp),
+                    style: ButtonStyle(
+                      padding: MaterialStateProperty.all(
+                          EdgeInsets.symmetric(vertical: 20)),
+                      backgroundColor: MaterialStateProperty.all(
+                        Colors.deepOrangeAccent[400],
+                      ),
+                      shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(120))),
+                    ),
+                  )
+                ],
               ),
             ),
           ),

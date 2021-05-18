@@ -22,7 +22,7 @@ void main() => runApp(
                   title: 'Cart',
                 ),
             'transaction': (context) => TransactionScreen(
-                  title: 'Transaction',
+                  title: 'Transaction History',
                 ),
             'profile': (context) => Profile(
                   title: 'Profile',

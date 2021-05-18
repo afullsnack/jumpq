@@ -13,41 +13,53 @@ class TransactionView extends StatelessWidget {
     return Card(
       elevation: 6,
       margin: EdgeInsets.all(10),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: <Widget>[
-          Text(
-            'Transaction ID: #${item.transactionId}',
-            style: TextStyle(
-              color: Colors.orangeAccent[700],
+      child: Padding(
+        padding: const EdgeInsets.all(15.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: <Widget>[
+            Text(
+              'Transaction ID: #${item.transactionId}',
+              style: TextStyle(
+                color: Colors.orangeAccent[700],
+                fontSize: 19,
+                fontWeight: FontWeight.w700,
+              ),
             ),
-          ),
-          SizedBox(
-            height: 5.0,
-          ),
-          Text('${item.transactionDate}'),
-          SizedBox(
-            height: 30.0,
-          ),
-          Text(
-            item.status == '0' ? 'Succesful' : 'Pending',
-            style: TextStyle(
-              fontSize: 20.0,
-              fontWeight: FontWeight.bold,
+            SizedBox(
+              height: 10.0,
             ),
-          ),
-          SizedBox(
-            height: 5.0,
-          ),
-          Text(
-            '${item.subTotal}',
-            style: TextStyle(
-              fontWeight: FontWeight.w900,
-              color: Colors.greenAccent[700],
+            Text(
+              '${item.transactionDate}',
+              style: TextStyle(
+                fontWeight: FontWeight.w600,
+              ),
             ),
-          ),
-        ],
+            SizedBox(
+              height: 16.0,
+            ),
+            Text(
+              item.status == '0' ? 'Succesful' : 'Pending',
+              style: TextStyle(
+                fontSize: 18.5,
+                fontWeight: FontWeight.bold,
+                color: Colors.black.withOpacity(.6),
+              ),
+            ),
+            SizedBox(
+              height: 5.0,
+            ),
+            Text(
+              '${item.currency}${item.subTotal}',
+              style: TextStyle(
+                fontWeight: FontWeight.w900,
+                color: Colors.greenAccent[700],
+                fontSize: 18,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

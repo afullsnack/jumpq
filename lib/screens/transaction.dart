@@ -46,22 +46,33 @@ class _TransactionScreenState extends State<TransactionScreen> {
           Expanded(
             flex: 6,
             child: Container(
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
-                child: ListView(
-                  scrollDirection: Axis.vertical,
-                  children: transactions
-                      .map((item) => TransactionView(
-                            item: item,
-                            removeItem: () {
-                              setState(() {
-                                transactions.remove(item);
-                              });
-                            },
-                          ))
-                      .toList(),
-                ),
+              child: ListView(
+                padding: EdgeInsets.all(0.0),
+                scrollDirection: Axis.vertical,
+                children: transactions
+                    .map((item) => PopupMenuButton(
+                        itemBuilder: (_) => <PopupMenuItem<String>>[
+                              new PopupMenuItem<String>(
+                                  child: new Text('View Transaction'),
+                                  value: 'view_trans'),
+                              new PopupMenuItem<String>(
+                                  child: new Text('View Transaction Barcode'),
+                                  value: 'view_barcode'),
+                            ],
+                        onSelected: (_) {
+                          print(_ == "view_trans"
+                              ? "View trans screen"
+                              : "View Barcode screen");
+                        },
+                        child: TransactionView(
+                          item: item,
+                          removeItem: () {
+                            setState(() {
+                              transactions.remove(item);
+                            });
+                          },
+                        )))
+                    .toList(),
               ),
             ),
           ),

@@ -43,7 +43,7 @@ class Transaction {
   String buyerName;
   String buyerPhone;
   String staff;
-  DateTime transactionDate;
+  String transactionDate;
   String status;
   String currency;
   List<dynamic> purchases;

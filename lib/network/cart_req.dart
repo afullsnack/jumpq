@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/foundation.dart';
 import 'package:jumpq/models/cart_item.dart';
-// import 'package:shared_preferences/shared_preferences.dart';
 
 List<CartItem> parse(dynamic responseBody) {
   var list = json.decode(responseBody) as List<dynamic>;

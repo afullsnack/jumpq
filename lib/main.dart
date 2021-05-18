@@ -21,7 +21,7 @@ void main() => runApp(
             'cart': (context) => Cart(
                   title: 'Cart',
                 ),
-            'transaction': (context) => Transaction(
+            'transaction': (context) => TransactionScreen(
                   title: 'Transaction',
                 ),
             'profile': (context) => Profile(

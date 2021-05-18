@@ -22,7 +22,7 @@ class _CartState extends State<Cart> {
     super.initState();
   }
 
-  _getCartData() async {
+  void _getCartData() async {
     var data = await fetchCart();
     // print(data);
     // print('Inside getCartData');

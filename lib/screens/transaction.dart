@@ -1,7 +1,15 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:jumpq/models/index.dart';
+import 'package:jumpq/models/invoice/customer.dart';
+import 'package:jumpq/models/invoice/invoice.dart';
+import 'package:jumpq/models/invoice/vendor.dart';
 import 'package:jumpq/network/transaction_req.dart';
+import 'package:jumpq/services/pdf_api.dart';
+import 'package:jumpq/services/pdf_invoice_api.dart';
 import 'package:jumpq/widgets/widgets.dart';
+import 'package:path_provider/path_provider.dart';
 
 class TransactionScreen extends StatefulWidget {
   TransactionScreen({Key key, this.title}) : super(key: key);
@@ -59,10 +67,54 @@ class _TransactionScreenState extends State<TransactionScreen> {
                                   child: new Text('View Transaction Barcode'),
                                   value: 'view_barcode'),
                             ],
-                        onSelected: (_) {
+                        onSelected: (_) async {
                           print(_ == "view_trans"
                               ? "View trans screen"
                               : "View Barcode screen");
+                          // check which menu item is selected and run logic
+                          if (_ == "view_trans") {
+                            // check if the receipt with transactionID exists
+                            final dir =
+                                await getApplicationDocumentsDirectory();
+                            final file = File(
+                                '${dir.path}/receipt-${item.transactionId}.pdf');
+                            bool fileDoesExist = await file.exists();
+                            if (fileDoesExist) {
+                              return PdfApi.openFile(file);
+                            }
+
+                            final invoice = Invoice(
+                              info: InvoiceInfo(
+                                currency: item.currency,
+                                transactionId: item.transactionId,
+                                date: item.transactionDate,
+                                serviceCharge: item.serviceCharge as double,
+                              ),
+                              supplier: Supplier(
+                                branch: item.branch,
+                                address: item.address,
+                                phone: item.phone,
+                                receiptUrl: item.receiptUrl,
+                              ),
+                              customer: Customer(
+                                name: item.buyerName,
+                                phone: item.buyerPhone,
+                              ),
+                              items: item.purchases
+                                  .map(
+                                    (item) => InvoiceItem(
+                                      description: item.product,
+                                      quantity: item.quantity,
+                                      price: item.price,
+                                    ),
+                                  )
+                                  .toList(),
+                            );
+                            final pdfFile =
+                                await PdfInvoiceApi.generate(invoice);
+
+                            PdfApi.openFile(pdfFile);
+                          }
                         },
                         child: TransactionView(
                           item: item,

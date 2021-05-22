@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:jumpq/models/user.dart';
+import 'package:jumpq/network/login_req.dart';
 import 'package:jumpq/state/login_provider.dart';
+import 'package:jumpq/widgets/overlay.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Login extends StatefulWidget {
@@ -19,7 +22,7 @@ class _LoginState extends State<Login> {
 
   void initState() {
     super.initState();
-    isUserLoggedIn();
+    // isUserLoggedIn();
   }
 
   Future isUserLoggedIn() async {
@@ -180,40 +183,69 @@ class _LoginState extends State<Login> {
                               ),
                             ),
                             onPressed: () async {
+                              OverlayEntry entry = showOverlay(context);
+                              SharedPreferences prefs =
+                                  await SharedPreferences.getInstance();
                               if (!_formKeyLogin.currentState.validate()) {
                                 return;
                               }
 
                               _formKeyLogin.currentState.save();
 
-                              final asyncValue = context.read(loginProvider({
+                              // final asyncValue = context.read(loginProvider({
+                              //   'username': _username,
+                              //   'password': _password,
+                              // }));
+
+                              // final user = asyncValue.whenData((value) {
+                              //   print('Inside whenData function');
+                              //   print(value);
+                              // });
+
+                              final User user = await login({
                                 'username': _username,
                                 'password': _password,
-                              }));
-
-                              final user = asyncValue.whenData((value) {
-                                print('Inside whenData function');
-                                print(value);
                               });
+
+                              // set api_token in prefs
+                              prefs.setString('api_token', user.apiToken);
+                              entry.remove();
 
                               print('user $user');
 
                               print(_username);
                               print(_password);
-                              // Navigator.pushReplacementNamed(context, 'home',
-                              //     arguments: user);
+                              Navigator.pushNamedAndRemoveUntil(
+                                  context, 'home', (route) => false,
+                                  arguments: user);
                             },
                           );
                         }),
                       ),
-                      SizedBox(height: 10.0),
+                      SizedBox(height: 20.0),
                       RichText(
-                        text: TextSpan(text: 'Can\'t login? ', children: [
-                          TextSpan(text: 'Forgot Password'),
-                        ]),
+                        text: TextSpan(
+                          text: 'Can\'t login? ',
+                          style: TextStyle(color: Colors.black),
+                          children: [
+                            TextSpan(
+                              text: 'Forgot Password',
+                              style: TextStyle(color: Colors.deepOrange),
+                            ),
+                          ],
+                        ),
                       ),
                       SizedBox(height: 24.0),
-                      Text("Don't have an account? Register"),
+                      RichText(
+                        text: TextSpan(
+                            text: 'Don\'t have an account? ',
+                            style: TextStyle(color: Colors.black),
+                            children: [
+                              TextSpan(
+                                  text: 'Register',
+                                  style: TextStyle(color: Colors.deepOrange)),
+                            ]),
+                      ),
                     ],
                   ),
                 ),

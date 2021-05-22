@@ -138,7 +138,7 @@ class PdfInvoiceApi {
         .reduce((item1, item2) => item1 + item2);
     final serviceCharge = invoice.info.serviceCharge;
     final total = subTotal + serviceCharge;
-    final currency = invoice.info.currency;
+    // final currency = invoice.info.currency;
 
     return Container(
       alignment: Alignment.centerRight,
@@ -152,12 +152,12 @@ class PdfInvoiceApi {
               children: [
                 buildText(
                   title: 'Sub total',
-                  value: '$currency ${subTotal.toStringAsFixed(1)}',
+                  value: 'N ${subTotal.toStringAsFixed(1)}',
                   unite: true,
                 ),
                 buildText(
                   title: 'Service Charge',
-                  value: '$currency ${serviceCharge.toStringAsFixed(1)}',
+                  value: 'N ${serviceCharge.toStringAsFixed(1)}',
                   unite: true,
                 ),
                 Divider(),
@@ -167,7 +167,7 @@ class PdfInvoiceApi {
                     fontSize: 17,
                     fontWeight: FontWeight.bold,
                   ),
-                  value: '$currency ${total.toStringAsFixed(1)}',
+                  value: 'N ${total.toStringAsFixed(1)}',
                   unite: true,
                   bgColor: PdfColor.fromHex('#f29315'),
                 ),

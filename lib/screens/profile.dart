@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jumpq/models/user.dart';
 import 'package:jumpq/widgets/widgets.dart';
 
 class Profile extends StatefulWidget {
@@ -182,7 +183,7 @@ class _ProfileState extends State<Profile> {
 
   @override
   Widget build(BuildContext context) {
-    final userdata = ModalRoute.of(context).settings.arguments as Map;
+    final User userdata = ModalRoute.of(context).settings.arguments;
     print(userdata);
     return Scaffold(
 //      backgroundColor: Colors.deepOrange[700],
@@ -226,11 +227,11 @@ class _ProfileState extends State<Profile> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             SizedBox(height: 10.0),
-                            _buildUsername(userdata["username"]),
+                            _buildUsername(userdata.username),
                             SizedBox(height: 10.0),
-                            _buildEmail(userdata["email"]),
+                            _buildEmail(userdata.email),
                             SizedBox(height: 10.0),
-                            _buildMobile(userdata["phone"]),
+                            _buildMobile(userdata.phone),
                             SizedBox(height: 10.0),
                             _buildPassword(),
                             SizedBox(height: 10.0),

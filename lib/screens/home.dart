@@ -1,7 +1,9 @@
 import 'package:barcode_scan/barcode_scan.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:jumpq/models/user.dart';
 import 'package:jumpq/network/cart_req.dart';
+import 'package:jumpq/widgets/overlay.dart';
 import 'package:jumpq/widgets/widgets.dart';
 
 class Home extends StatelessWidget {
@@ -11,8 +13,8 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final args = ModalRoute.of(context).settings.arguments as Map;
-    print(args);
+    final User user = ModalRoute.of(context).settings.arguments;
+    print(user);
 
     return Scaffold(
 //      backgroundColor: Colors.deepOrange[700],
@@ -63,7 +65,7 @@ class Home extends StatelessWidget {
                                   child: Icon(Icons.person),
                                   onPressed: () {
                                     Navigator.pushNamed(context, 'profile',
-                                        arguments: args);
+                                        arguments: user);
                                   },
                                 ),
                                 SizedBox(
@@ -73,7 +75,7 @@ class Home extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
                                     Text(
-                                      '${args["firstname"]} ${args["lastname"]}',
+                                      '${user.firstname} ${user.lastname}',
                                       style: TextStyle(
                                         fontSize: 21,
                                         fontWeight: FontWeight.w500,
@@ -81,7 +83,7 @@ class Home extends StatelessWidget {
                                     ),
                                     SizedBox(height: 3),
                                     Text(
-                                      "${args['email']}",
+                                      "${user.email}",
                                       style: TextStyle(
                                         fontSize: 17,
                                         fontWeight: FontWeight.w500,
@@ -89,7 +91,7 @@ class Home extends StatelessWidget {
                                     ),
                                     SizedBox(height: 3),
                                     Text(
-                                      "${args['phone']}",
+                                      "${user.phone}",
                                       style: TextStyle(
                                         fontSize: 17,
                                         fontWeight: FontWeight.w500,
@@ -126,7 +128,7 @@ class Home extends StatelessWidget {
                                 onPressed: () {
                                   print('Move to profile');
                                   Navigator.pushNamed(context, 'profile',
-                                      arguments: args);
+                                      arguments: user);
                                 },
                               ),
                             ),
@@ -156,9 +158,13 @@ class Home extends StatelessWidget {
                                     return;
                                   } else {
                                     print(result);
+                                    OverlayEntry entry = showOverlay(context);
                                     var data = await verifyBranchId(result);
                                     Navigator.pushNamed(context, 'cart',
-                                        arguments: data);
+                                        arguments: {
+                                          "branch": data,
+                                          "entry": entry
+                                        });
                                   }
                                   // Navigator.pushNamed(context, 'shop');
                                 },
@@ -171,7 +177,9 @@ class Home extends StatelessWidget {
                               // height: double.infinity,
                               child: _activityBtn(
                                 () {
-                                  Navigator.pushNamed(context, 'transaction');
+                                  OverlayEntry entry = showOverlay(context);
+                                  Navigator.pushNamed(context, 'transaction',
+                                      arguments: entry);
                                 },
                                 'Transactions',
                                 Icons.list,

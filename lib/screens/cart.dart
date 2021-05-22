@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:jumpq/models/index.dart';
 import 'package:jumpq/network/cart_req.dart';
+import 'package:jumpq/widgets/overlay.dart';
 import 'package:jumpq/widgets/widgets.dart';
 
 class Cart extends StatefulWidget {
@@ -33,7 +34,17 @@ class _CartState extends State<Cart> {
 
   @override
   Widget build(BuildContext context) {
-    final branchData = ModalRoute.of(context).settings.arguments as Map;
+    final args = ModalRoute.of(context).settings.arguments as Map;
+    final branch = args['branch'];
+    print(branch);
+    OverlayEntry entry = args['entry'];
+
+    if (cartItems.isNotEmpty) entry.remove();
+    final total = cartItems.isNotEmpty
+        ? cartItems
+            .map((item) => double.parse(item.price) * int.parse(item.quantity))
+        : '0.0';
+    final currency = cartItems.isNotEmpty ? cartItems[0].currency : 'N';
     // print(branchData);
     return Scaffold(
 //      backgroundColor: Colors.deepOrange[700],
@@ -68,7 +79,7 @@ class _CartState extends State<Cart> {
                       ),
                     ),
                     Text(
-                      'N 201.6',
+                      '$currency$total',
                       style: TextStyle(
                         fontSize: 17,
                         fontWeight: FontWeight.w500,

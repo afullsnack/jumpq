@@ -1,5 +1,3 @@
-import 'package:jumpq/models/index.dart';
-
 class CartItem {
   int id;
   int productId;

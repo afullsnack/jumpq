@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/foundation.dart';
 import 'package:jumpq/models/cart_item.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 List<CartItem> parse(dynamic responseBody) {
   var list = json.decode(responseBody) as List<dynamic>;
@@ -12,7 +13,8 @@ List<CartItem> parse(dynamic responseBody) {
 
 // Fetch the cart data with the users api_token getten from a logged in user
 Future<List<CartItem>> fetchCart() async {
-  var apiToken = "dPimeH5SaQmKWQsSfM4FsLwqSIrBNNzt5ruMztnDA3EidftoBGU9AlgRMa8R";
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  var apiToken = prefs.getString('api_token');
 
   var url = 'https://myjumpq.net/api/user/cart';
   // var data;

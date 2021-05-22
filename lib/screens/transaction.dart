@@ -8,6 +8,7 @@ import 'package:jumpq/models/invoice/vendor.dart';
 import 'package:jumpq/network/transaction_req.dart';
 import 'package:jumpq/services/pdf_api.dart';
 import 'package:jumpq/services/pdf_invoice_api.dart';
+import 'package:jumpq/widgets/overlay.dart';
 import 'package:jumpq/widgets/widgets.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -39,6 +40,8 @@ class _TransactionScreenState extends State<TransactionScreen> {
 
   @override
   Widget build(BuildContext context) {
+    OverlayEntry entry = ModalRoute.of(context).settings.arguments;
+    if (transactions.isNotEmpty) entry.remove();
     return Scaffold(
 //      backgroundColor: Colors.deepOrange[700],
       body: Column(
@@ -88,7 +91,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
                                 currency: item.currency,
                                 transactionId: item.transactionId,
                                 date: item.transactionDate,
-                                serviceCharge: item.serviceCharge as double,
+                                serviceCharge: double.parse(item.serviceCharge),
                               ),
                               supplier: Supplier(
                                 branch: item.branch,
@@ -102,10 +105,10 @@ class _TransactionScreenState extends State<TransactionScreen> {
                               ),
                               items: item.purchases
                                   .map(
-                                    (item) => InvoiceItem(
-                                      description: item.product,
-                                      quantity: item.quantity,
-                                      price: item.price,
+                                    (i) => InvoiceItem(
+                                      description: i["product"],
+                                      quantity: int.parse(i["quantity"]),
+                                      price: double.parse(i["price"]),
                                     ),
                                   )
                                   .toList(),

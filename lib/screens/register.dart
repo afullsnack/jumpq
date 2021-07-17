@@ -23,7 +23,7 @@ class _RegisterState extends State<Register> {
   final GlobalKey<FormState> _formKeyRegister = GlobalKey<FormState>();
 
   void register(Map userData) async {
-    var url = 'https://myjumpq.net/api/user/register';
+    Uri url = 'https://myjumpq.net/api/user/register' as Uri;
     var response = await http.post(url, body: userData);
 
     if (response.statusCode == 300) {

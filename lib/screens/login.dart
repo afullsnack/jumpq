@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:jumpq/models/user.dart';
 import 'package:jumpq/network/login_req.dart';
-import 'package:jumpq/state/login_provider.dart';
+import 'package:jumpq/provider/login_provider.dart';
 import 'package:jumpq/widgets/overlay.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

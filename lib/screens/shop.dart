@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jumpq/widgets/widgets.dart';
-import 'package:barcode_scan/barcode_scan.dart';
+import 'package:barcode_scan2/barcode_scan2.dart';
 
 class Shop extends StatefulWidget {
   Shop({Key key, this.title}) : super(key: key);

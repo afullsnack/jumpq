@@ -1,5 +1,6 @@
 import 'dart:convert';
-import 'package:http/http.dart' as http;
+import 'package:dio/dio.dart';
+// import 'package:http/http.dart' as http;
 import 'package:flutter/foundation.dart';
 import 'package:jumpq/models/cart_item.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -19,12 +20,16 @@ Future<List<CartItem>> fetchCart() async {
   var url = 'https://myjumpq.net/api/user/cart';
   // var data;
 
-  final response = await http.get(url, headers: {"api_token": apiToken});
+  // final response = await http.get(url, headers: {"api_token": apiToken});
+  var response = await Dio().get(
+    url,
+    options: Options(headers: {"api_token": apiToken}),
+  );
 
   if (response.statusCode == 200) {
-    return compute(parse, response.body);
+    return compute(parse, response.data);
   } else {
-    throw Exception(response.body);
+    throw Exception(response.data);
   }
 }
 
@@ -33,7 +38,11 @@ Future deleteCartItem(int itemId) async {
   var apiToken = "dPimeH5SaQmKWQsSfM4FsLwqSIrBNNzt5ruMztnDA3EidftoBGU9AlgRMa8R";
   var url = "https://myjumpq.net/api/user/remove_from_cart/$itemId";
 
-  final response = await http.get(url, headers: {"api_token": apiToken});
+  // final response = await http.get(url, headers: {"api_token": apiToken});
+  var response = await Dio().get(
+    url,
+    options: Options(headers: {"api_token": apiToken}),
+  );
 
   if (response.statusCode == 200) {
     return true;
@@ -49,16 +58,20 @@ Future<Object> verifyBranchId(String branchId) async {
   var url = 'https://myjumpq.net/api/user/branch/$branchId';
   var data;
 
-  var response = await http.get(url, headers: {"api_token": apiToken});
+  // var response = await http.get(url, headers: {"api_token": apiToken});
+  var response = await Dio().get(
+    url,
+    options: Options(headers: {"api_token": apiToken}),
+  );
 
   if (response.statusCode == 422) {
-    dynamic res = jsonDecode(response.body);
+    dynamic res = jsonDecode(response.data);
     print(res);
     throw Exception(res);
   }
 
   if (response.statusCode == 200) {
-    dynamic res = jsonDecode(response.body);
+    dynamic res = jsonDecode(response.data);
 
     // print(res["data"]);
 

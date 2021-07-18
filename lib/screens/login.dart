@@ -87,6 +87,7 @@ class _LoginState extends State<Login> {
         Text('PASSWORD :'),
         SizedBox(height: 8.0),
         TextFormField(
+          obscureText: true,
           autovalidateMode: AutovalidateMode.onUserInteraction,
           cursorColor: Colors.black,
           decoration: InputDecoration(
@@ -236,15 +237,21 @@ class _LoginState extends State<Login> {
                         ),
                       ),
                       SizedBox(height: 24.0),
-                      RichText(
-                        text: TextSpan(
-                            text: 'Don\'t have an account? ',
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Don\'t have an account? ',
                             style: TextStyle(color: Colors.black),
-                            children: [
-                              TextSpan(
-                                  text: 'Register',
-                                  style: TextStyle(color: Colors.deepOrange)),
-                            ]),
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.pushNamed(context, 'register');
+                            },
+                            child: Text('Register',
+                                style: TextStyle(color: Colors.deepOrange)),
+                          ),
+                        ],
                       ),
                     ],
                   ),

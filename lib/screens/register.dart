@@ -368,7 +368,21 @@ class _RegisterState extends State<Register> {
                     SizedBox(height: 10.0),
                     Text('By signing up you agree to our terms and conditions'),
                     SizedBox(height: 24.0),
-                    Text('Already have an account? Login'),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text('Already have an account? '),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.pushNamed(context, 'login');
+                          },
+                          child: Text(
+                            'Login',
+                            style: TextStyle(color: Colors.deepOrange),
+                          ),
+                        ),
+                      ],
+                    ),
                   ],
                 ),
               ),

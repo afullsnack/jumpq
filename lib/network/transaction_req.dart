@@ -1,6 +1,6 @@
 import 'dart:convert';
-import 'package:dio/dio.dart';
-// import 'package:http/http.dart' as http;
+// import 'package:dio/dio.dart';
+import 'package:http/http.dart' as http;
 import 'package:flutter/foundation.dart';
 import 'package:jumpq/models/transaction_item.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -17,18 +17,18 @@ Future<List<Transaction>> fetchTransactions() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   var apiToken = prefs.getString('api_token');
 
-  var url = 'https://myjumpq.net/api/user/transactions';
+  var url = Uri.parse('https://myjumpq.net/api/user/transactions');
   // var data;
 
-  // final response = await http.get(url, headers: {"api_token": apiToken});
-  var response = await Dio().get(
-    url,
-    options: Options(headers: {"api_token": apiToken}),
-  );
+  final response = await http.get(url, headers: {"api_token": apiToken});
+  // var response = await Dio().get(
+  //   url,
+  //   options: Options(headers: {"api_token": apiToken}),
+  // );
 
   if (response.statusCode == 200) {
-    return compute(parse, response.data);
+    return compute(parse, response.body);
   } else {
-    throw Exception(response.data);
+    throw Exception(response.body);
   }
 }

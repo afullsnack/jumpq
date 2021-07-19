@@ -41,8 +41,7 @@ class _CartState extends State<Cart> {
 
     if (cartItems.isNotEmpty) entry.remove();
     final total = cartItems.isNotEmpty
-        ? cartItems
-            .map((item) => double.parse(item.price) * int.parse(item.quantity))
+        ? cartItems.map((item) => double.parse(item.price) * item.quantity)
         : '0.0';
     final currency = cartItems.isNotEmpty ? cartItems[0].currency : 'N';
     // print(branchData);

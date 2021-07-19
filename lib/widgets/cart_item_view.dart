@@ -33,7 +33,7 @@ class CartItemView extends StatelessWidget {
                 ),
               ),
               Text(
-                item.quantity,
+                item.quantity.toString(),
                 style: TextStyle(
                   color: Colors.black.withOpacity(.5),
                   fontSize: 16,

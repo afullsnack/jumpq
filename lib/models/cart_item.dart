@@ -2,7 +2,7 @@ class CartItem {
   int id;
   int productId;
   String product;
-  String quantity;
+  int quantity;
   String currency;
   String price;
   String imgUrl;

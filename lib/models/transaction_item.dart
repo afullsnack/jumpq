@@ -38,23 +38,23 @@
 //     }
 
 class Transaction {
-  int id;
-  String transactionId;
-  String buyerName;
-  String buyerPhone;
-  String staff;
-  String transactionDate;
-  String status;
-  String currency;
-  List<dynamic> purchases;
-  String serviceCharge;
-  String subTotal;
-  String payment;
-  String total;
-  String receiptUrl;
-  String branch;
-  String address;
-  String phone;
+  int? id;
+  String? transactionId;
+  String? buyerName;
+  String? buyerPhone;
+  String? staff;
+  String? transactionDate;
+  String? status;
+  String? currency;
+  List<dynamic>? purchases;
+  String? serviceCharge;
+  String? subTotal;
+  String? payment;
+  String? total;
+  String? receiptUrl;
+  String? branch;
+  String? address;
+  String? phone;
 
   Transaction({
     this.id,

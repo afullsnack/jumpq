@@ -3,20 +3,20 @@ import 'package:jumpq/models/user.dart';
 import 'package:jumpq/widgets/widgets.dart';
 
 class Profile extends StatefulWidget {
-  Profile({Key key, this.title}) : super(key: key);
+  Profile({Key? key, this.title}) : super(key: key);
 
-  final String title;
+  final String? title;
 
   @override
   _ProfileState createState() => _ProfileState();
 }
 
 class _ProfileState extends State<Profile> {
-  String _username;
-  String _email;
-  String _mobile;
-  String _password;
-  String _confirmPass;
+  String? _username;
+  String? _email;
+  String? _mobile;
+  String? _password;
+  String? _confirmPass;
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -36,16 +36,16 @@ class _ProfileState extends State<Profile> {
               borderRadius: BorderRadius.circular(30),
             ),
             filled: true,
-            fillColor: Colors.blueGrey[100].withOpacity(.5),
+            fillColor: Colors.blueGrey[100]?.withOpacity(.5),
           ),
-          validator: (String value) {
-            if (value.isEmpty) {
+          validator: (String? value) {
+            if (value!.isEmpty) {
               return 'Username is required';
             }
             return '';
           },
-          onSaved: (String value) {
-            _username = value;
+          onSaved: (String? value) {
+            _username = value!;
           },
         ),
       ],
@@ -68,16 +68,16 @@ class _ProfileState extends State<Profile> {
               borderRadius: BorderRadius.circular(30),
             ),
             filled: true,
-            fillColor: Colors.blueGrey[100].withOpacity(.5),
+            fillColor: Colors.blueGrey[100]?.withOpacity(.5),
           ),
-          validator: (String value) {
-            if (value.isEmpty) {
+          validator: (String? value) {
+            if (value!.isEmpty) {
               return 'Email is required';
             }
             return '';
           },
-          onSaved: (String value) {
-            _email = value;
+          onSaved: (String? value) {
+            _email = value!;
           },
         ),
       ],
@@ -100,16 +100,16 @@ class _ProfileState extends State<Profile> {
               borderRadius: BorderRadius.circular(30),
             ),
             filled: true,
-            fillColor: Colors.blueGrey[100].withOpacity(.5),
+            fillColor: Colors.blueGrey[100]?.withOpacity(.5),
           ),
-          validator: (String value) {
-            if (value.isEmpty) {
+          validator: (String? value) {
+            if (value!.isEmpty) {
               return 'Mobile is required';
             }
             return '';
           },
-          onSaved: (String value) {
-            _mobile = value;
+          onSaved: (String? value) {
+            _mobile = value!;
           },
         ),
       ],
@@ -131,16 +131,16 @@ class _ProfileState extends State<Profile> {
               borderRadius: BorderRadius.circular(30),
             ),
             filled: true,
-            fillColor: Colors.blueGrey[100].withOpacity(.5),
+            fillColor: Colors.blueGrey[100]?.withOpacity(.5),
           ),
-          validator: (String value) {
-            if (value.isEmpty) {
+          validator: (String? value) {
+            if (value!.isEmpty) {
               return 'Password is required';
             }
             return '';
           },
-          onSaved: (String value) {
-            _password = value;
+          onSaved: (String? value) {
+            _password = value!;
           },
         ),
       ],
@@ -162,10 +162,10 @@ class _ProfileState extends State<Profile> {
               borderRadius: BorderRadius.circular(40),
             ),
             filled: true,
-            fillColor: Colors.blueGrey[100].withOpacity(.5),
+            fillColor: Colors.blueGrey[100]?.withOpacity(.5),
           ),
-          validator: (String value) {
-            if (value.isEmpty) {
+          validator: (String? value) {
+            if (value!.isEmpty) {
               return 'You need to re-enter your password';
             }
             if (value != _password) {
@@ -173,8 +173,8 @@ class _ProfileState extends State<Profile> {
             }
             return '';
           },
-          onSaved: (String value) {
-            _confirmPass = value;
+          onSaved: (String? value) {
+            _confirmPass = value!;
           },
         ),
       ],
@@ -183,7 +183,7 @@ class _ProfileState extends State<Profile> {
 
   @override
   Widget build(BuildContext context) {
-    final User userdata = ModalRoute.of(context).settings.arguments;
+    final User userdata = ModalRoute.of(context)?.settings.arguments as User;
     print(userdata);
     return Scaffold(
 //      backgroundColor: Colors.deepOrange[700],
@@ -191,7 +191,7 @@ class _ProfileState extends State<Profile> {
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           Header(
-            title: widget.title,
+            title: widget.title!,
             actionIcon: Icon(
               Icons.arrow_back_ios,
               color: Colors.white,
@@ -255,11 +255,11 @@ class _ProfileState extends State<Profile> {
                                   vertical: 10.0,
                                 ),
                                 onPressed: () {
-                                  if (!_formKey.currentState.validate()) {
+                                  if (!_formKey.currentState!.validate()) {
                                     return;
                                   }
 
-                                  _formKey.currentState.save();
+                                  _formKey.currentState?.save();
 
                                   print(_username);
                                   print(_email);

@@ -40,8 +40,9 @@ class _TransactionScreenState extends State<TransactionScreen> {
 
   @override
   Widget build(BuildContext context) {
-    OverlayEntry? entry = ModalRoute.of(context).settings.arguments;
-    if (transactions.isNotEmpty) entry!.remove();
+    OverlayEntry? entry =
+        ModalRoute.of(context)?.settings.arguments as OverlayEntry;
+    if (transactions.isNotEmpty) entry.remove();
     return Scaffold(
 //      backgroundColor: Colors.deepOrange[700],
       body: Column(
@@ -91,7 +92,8 @@ class _TransactionScreenState extends State<TransactionScreen> {
                                 currency: item.currency,
                                 transactionId: item.transactionId,
                                 date: item.transactionDate,
-                                serviceCharge: double.parse(item.serviceCharge),
+                                serviceCharge:
+                                    double.parse(item.serviceCharge!),
                               ),
                               supplier: Supplier(
                                 branch: item.branch,
@@ -103,7 +105,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
                                 name: item.buyerName,
                                 phone: item.buyerPhone,
                               ),
-                              items: item.purchases
+                              items: item.purchases!
                                   .map(
                                     (i) => InvoiceItem(
                                       description: i["product"],

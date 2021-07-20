@@ -9,12 +9,12 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart';
 
 class PdfInvoiceApi {
-  static Future<File> generate(Invoice invoice) async {
+  static Future<File> generate(Invoice? invoice) async {
     final pdf = Document();
 
     pdf.addPage(MultiPage(
       build: (context) => [
-        buildHeader(invoice),
+        buildHeader(invoice!),
         SizedBox(height: 3 * PdfPageFormat.cm),
         buildInvoice(invoice),
         Divider(),
@@ -23,31 +23,31 @@ class PdfInvoiceApi {
     ));
 
     return PdfApi.saveDocument(
-        name: 'receipt-${invoice.info.transactionId}.pdf', pdf: pdf);
+        name: 'receipt-${invoice?.info?.transactionId}.pdf', pdf: pdf);
   }
 
 // Build vendor info
-  static Widget buildHeader(Invoice invoice) => Column(
+  static Widget buildHeader(Invoice? invoice) => Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SizedBox(height: 1 * PdfPageFormat.cm),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Branch: ${invoice.supplier.branch}',
+              Text('Branch: ${invoice!.supplier?.branch}',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                   )),
               SizedBox(height: 1 * PdfPageFormat.mm),
-              Text(invoice.supplier.address,
+              Text(invoice.supplier!.address!,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                   )),
               SizedBox(height: 1 * PdfPageFormat.mm),
-              Text(invoice.supplier.phone,
+              Text(invoice.supplier!.phone!,
                   style: TextStyle(fontWeight: FontWeight.bold)),
               SizedBox(height: 1 * PdfPageFormat.mm),
-              Text(invoice.supplier.receiptUrl,
+              Text(invoice.supplier!.receiptUrl!,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                   )),
@@ -64,8 +64,8 @@ class PdfInvoiceApi {
             crossAxisAlignment: CrossAxisAlignment.end,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              buildCustomer(invoice.customer),
-              buildInvoiceInfo(invoice.info),
+              buildCustomer(invoice.customer!),
+              buildInvoiceInfo(invoice.info!),
             ],
           ),
         ],
@@ -93,11 +93,11 @@ class PdfInvoiceApi {
 
   static Widget buildInvoice(Invoice invoice) {
     final headers = ['S/N', 'Item Description', 'Qty', 'Price', 'Total'];
-    final data = invoice.items.map((item) {
-      final total = item.price * item.quantity;
+    final data = invoice.items!.map((item) {
+      final total = item.price! * item.quantity!;
 
       return [
-        (invoice.items.indexOf(item) + 1),
+        (invoice.items!.indexOf(item) + 1),
         item.description,
         '${item.quantity}',
         '${item.price}',
@@ -133,11 +133,11 @@ class PdfInvoiceApi {
 
   // Build item subtotal
   static Widget buildTotal(Invoice invoice) {
-    final subTotal = invoice.items
-        .map((item) => item.price * item.quantity)
+    final subTotal = invoice.items!
+        .map((item) => item.price! * item.quantity!)
         .reduce((item1, item2) => item1 + item2);
-    final serviceCharge = invoice.info.serviceCharge;
-    final total = subTotal + serviceCharge;
+    final serviceCharge = invoice.info?.serviceCharge;
+    final total = subTotal + serviceCharge!;
     // final currency = invoice.info.currency;
 
     return Container(
@@ -184,12 +184,12 @@ class PdfInvoiceApi {
   }
 
   static buildText({
-    String title,
-    String value,
+    String? title,
+    String? value,
     double width = double.infinity,
-    TextStyle titleStyle,
-    bool unite = false,
-    PdfColor bgColor = null,
+    TextStyle? titleStyle,
+    bool? unite = false,
+    PdfColor? bgColor,
   }) {
     final style = titleStyle ?? TextStyle(fontWeight: FontWeight.bold);
 
@@ -197,8 +197,8 @@ class PdfInvoiceApi {
       width: width,
       child: Row(
         children: [
-          Expanded(child: Text(title, style: style)),
-          Text(value, style: unite ? style : null),
+          Expanded(child: Text(title!, style: style)),
+          Text(value!, style: unite! ? style : null),
         ],
       ),
     );

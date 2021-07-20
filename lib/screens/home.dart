@@ -7,13 +7,13 @@ import 'package:jumpq/widgets/overlay.dart';
 import 'package:jumpq/widgets/widgets.dart';
 
 class Home extends StatelessWidget {
-  Home({Key key, this.title}) : super(key: key);
+  Home({Key? key, this.title}) : super(key: key);
 
-  final String title;
+  final String? title;
 
   @override
   Widget build(BuildContext context) {
-    final User user = ModalRoute.of(context).settings.arguments;
+    final User? user = ModalRoute.of(context)!.settings.arguments as User;
     print(user);
 
     return Scaffold(
@@ -32,7 +32,7 @@ class Home extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             Header(
-              title: title,
+              title: title!,
               actionIcon: Icon(
                 Icons.exit_to_app,
                 color: Colors.white,
@@ -75,7 +75,7 @@ class Home extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
                                     Text(
-                                      '${user.firstname} ${user.lastname}',
+                                      '${user?.firstname} ${user?.lastname}',
                                       style: TextStyle(
                                         fontSize: 21,
                                         fontWeight: FontWeight.w500,
@@ -83,7 +83,7 @@ class Home extends StatelessWidget {
                                     ),
                                     SizedBox(height: 3),
                                     Text(
-                                      "${user.email}",
+                                      "${user?.email}",
                                       style: TextStyle(
                                         fontSize: 17,
                                         fontWeight: FontWeight.w500,
@@ -91,7 +91,7 @@ class Home extends StatelessWidget {
                                     ),
                                     SizedBox(height: 3),
                                     Text(
-                                      "${user.phone}",
+                                      "${user?.phone}",
                                       style: TextStyle(
                                         fontSize: 17,
                                         fontWeight: FontWeight.w500,
@@ -231,7 +231,7 @@ class Home extends StatelessWidget {
     );
   }
 
-  Future<String> _shopDialog(context) {
+  Future<dynamic> _shopDialog(context) {
     return showCupertinoDialog(
       context: context,
       barrierDismissible: true,

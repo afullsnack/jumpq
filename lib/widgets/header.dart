@@ -5,8 +5,8 @@ import 'package:flutter/rendering.dart';
 class Header extends StatelessWidget {
   Header({this.title, this.actionIcon});
 
-  final String title;
-  final Icon actionIcon;
+  final String? title;
+  final Icon? actionIcon;
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +72,7 @@ class Header extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 IconButton(
-                  icon: actionIcon,
+                  icon: actionIcon!,
                   onPressed: () {
                     Navigator.pop(context);
                   },

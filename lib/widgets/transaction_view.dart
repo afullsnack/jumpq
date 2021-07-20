@@ -5,8 +5,8 @@ import 'package:jumpq/models/index.dart';
 class TransactionView extends StatelessWidget {
   TransactionView({this.item, this.removeItem});
 
-  final Transaction item;
-  final Function removeItem;
+  final Transaction? item;
+  final Function? removeItem;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,7 @@ class TransactionView extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
             Text(
-              'Transaction ID: #${item.transactionId}',
+              'Transaction ID: #${item?.transactionId}',
               style: TextStyle(
                 color: Colors.orangeAccent[700],
                 fontSize: 19,
@@ -31,7 +31,7 @@ class TransactionView extends StatelessWidget {
               height: 10.0,
             ),
             Text(
-              '${item.transactionDate}',
+              '${item?.transactionDate}',
               style: TextStyle(
                 fontWeight: FontWeight.w600,
               ),
@@ -40,7 +40,7 @@ class TransactionView extends StatelessWidget {
               height: 16.0,
             ),
             Text(
-              item.status == '0' ? 'Succesful' : 'Pending',
+              item?.status == '0' ? 'Succesful' : 'Pending',
               style: TextStyle(
                 fontSize: 18.5,
                 fontWeight: FontWeight.bold,
@@ -51,7 +51,7 @@ class TransactionView extends StatelessWidget {
               height: 5.0,
             ),
             Text(
-              '${item.currency}${item.subTotal}',
+              '${item?.currency}${item?.subTotal}',
               style: TextStyle(
                 fontWeight: FontWeight.w900,
                 color: Colors.greenAccent[700],

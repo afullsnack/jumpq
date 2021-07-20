@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
 class User {
-  String username;
-  String firstname;
-  String lastname;
-  String email;
-  String phone;
-  String apiToken;
+  String? username;
+  String? firstname;
+  String? lastname;
+  String? email;
+  String? phone;
+  String? apiToken;
 
   User({
     @required this.username,

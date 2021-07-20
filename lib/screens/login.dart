@@ -209,7 +209,7 @@ class _LoginState extends State<Login> {
                               });
 
                               // set api_token in prefs
-                              prefs.setString('api_token', user.apiToken);
+                              prefs.setString('api_token', user.apiToken!);
                               entry.remove();
 
                               print('user $user');

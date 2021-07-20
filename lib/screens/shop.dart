@@ -3,9 +3,9 @@ import 'package:jumpq/widgets/widgets.dart';
 import 'package:barcode_scan2/barcode_scan2.dart';
 
 class Shop extends StatefulWidget {
-  Shop({Key key, this.title}) : super(key: key);
+  Shop({Key? key, this.title}) : super(key: key);
 
-  final String title;
+  final String? title;
 
   @override
   _ShopState createState() => _ShopState();
@@ -38,7 +38,7 @@ class _ShopState extends State<Shop> {
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           Header(
-            title: widget.title,
+            title: widget.title!,
             actionIcon: Icon(
               Icons.arrow_back_ios,
               color: Colors.white,
@@ -76,7 +76,7 @@ class _ShopState extends State<Shop> {
                               blurRadius: 9,
                               spreadRadius: -4,
                               offset: Offset(-7, -7),
-                              color: Colors.grey[200],
+                              color: Colors.grey[200]!,
                             ),
                           ]),
                     ),

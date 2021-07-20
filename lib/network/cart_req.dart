@@ -15,12 +15,12 @@ List<CartItem> parse(dynamic responseBody) {
 // Fetch the cart data with the users api_token getten from a logged in user
 Future<List<CartItem>> fetchCart() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  var apiToken = prefs.getString('api_token');
+  String? apiToken = prefs.getString('api_token');
 
   var url = Uri.parse('https://myjumpq.net/api/user/cart');
   // var data;
 
-  final response = await http.get(url, headers: {"api_token": apiToken});
+  final response = await http.get(url, headers: {"api_token": apiToken!});
   // var response = await Dio().get(
   //   url,
   //   options: Options(headers: {"api_token": apiToken}),
@@ -36,10 +36,10 @@ Future<List<CartItem>> fetchCart() async {
 // Delete the item from cart by passing the itemID
 Future deleteCartItem(int itemId) async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  var apiToken = prefs.getString('api_token');
+  String? apiToken = prefs.getString('api_token');
   var url = Uri.parse("https://myjumpq.net/api/user/remove_from_cart/$itemId");
 
-  final response = await http.get(url, headers: {"api_token": apiToken});
+  final response = await http.get(url, headers: {"api_token": apiToken!});
   // var response = await Dio().get(
   //   url,
   //   options: Options(headers: {"api_token": apiToken}),
@@ -55,11 +55,11 @@ Future deleteCartItem(int itemId) async {
 // Veriffy branch while entering cart screen
 Future<Object> verifyBranchId(String branchId) async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  var apiToken = prefs.getString('api_token');
+  String? apiToken = prefs.getString('api_token');
   var url = Uri.parse('https://myjumpq.net/api/user/branch/$branchId');
   var data;
 
-  var response = await http.get(url, headers: {"api_token": apiToken});
+  var response = await http.get(url, headers: {"api_token": apiToken!});
   // var response = await Dio().get(
   //   url,
   //   options: Options(headers: {"api_token": apiToken}),

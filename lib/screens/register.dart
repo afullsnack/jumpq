@@ -4,21 +4,21 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class Register extends StatefulWidget {
-  Register({Key key, this.title}) : super(key: key);
-  final String title;
+  Register({Key? key, this.title}) : super(key: key);
+  final String? title;
 
   @override
   _RegisterState createState() => _RegisterState();
 }
 
 class _RegisterState extends State<Register> {
-  String _firstname;
-  String _lastname;
-  String _username;
-  String _email;
-  String _mobile;
-  String _password;
-  String _confirmPass;
+  String? _firstname;
+  String? _lastname;
+  String? _username;
+  String? _email;
+  String? _mobile;
+  String? _password;
+  String? _confirmPass;
 
   final GlobalKey<FormState> _formKeyRegister = GlobalKey<FormState>();
 
@@ -58,16 +58,16 @@ class _RegisterState extends State<Register> {
               borderRadius: BorderRadius.circular(30),
             ),
             filled: true,
-            fillColor: Colors.blueGrey[100].withOpacity(.5),
+            fillColor: Colors.blueGrey[100]?.withOpacity(.5),
           ),
-          validator: (String value) {
-            if (value.isEmpty) {
+          validator: (String? value) {
+            if (value!.isEmpty) {
               return 'First name is required';
             }
             return null;
           },
-          onSaved: (String value) {
-            _firstname = value;
+          onSaved: (String? value) {
+            _firstname = value!;
           },
         ),
       ],
@@ -90,16 +90,16 @@ class _RegisterState extends State<Register> {
               borderRadius: BorderRadius.circular(30),
             ),
             filled: true,
-            fillColor: Colors.blueGrey[100].withOpacity(.5),
+            fillColor: Colors.blueGrey[100]?.withOpacity(.5),
           ),
-          validator: (String value) {
-            if (value.isEmpty) {
+          validator: (String? value) {
+            if (value!.isEmpty) {
               return 'Last name is required';
             }
             return null;
           },
-          onSaved: (String value) {
-            _lastname = value;
+          onSaved: (String? value) {
+            _lastname = value!;
           },
         ),
       ],
@@ -122,16 +122,16 @@ class _RegisterState extends State<Register> {
               borderRadius: BorderRadius.circular(30),
             ),
             filled: true,
-            fillColor: Colors.blueGrey[100].withOpacity(.5),
+            fillColor: Colors.blueGrey[100]?.withOpacity(.5),
           ),
-          validator: (String value) {
-            if (value.isEmpty) {
+          validator: (String? value) {
+            if (value!.isEmpty) {
               return 'Username is required';
             }
             return null;
           },
-          onSaved: (String value) {
-            _username = value;
+          onSaved: (String? value) {
+            _username = value!;
           },
         ),
       ],
@@ -154,16 +154,16 @@ class _RegisterState extends State<Register> {
               borderRadius: BorderRadius.circular(30),
             ),
             filled: true,
-            fillColor: Colors.blueGrey[100].withOpacity(.5),
+            fillColor: Colors.blueGrey[100]?.withOpacity(.5),
           ),
-          validator: (String value) {
-            if (value.isEmpty) {
+          validator: (String? value) {
+            if (value!.isEmpty) {
               return 'Email is required';
             }
             return null;
           },
-          onSaved: (String value) {
-            _email = value;
+          onSaved: (String? value) {
+            _email = value!;
           },
         ),
       ],
@@ -186,16 +186,16 @@ class _RegisterState extends State<Register> {
               borderRadius: BorderRadius.circular(30),
             ),
             filled: true,
-            fillColor: Colors.blueGrey[100].withOpacity(.5),
+            fillColor: Colors.blueGrey[100]?.withOpacity(.5),
           ),
-          validator: (String value) {
-            if (value.isEmpty) {
+          validator: (String? value) {
+            if (value!.isEmpty) {
               return 'Mobile is required';
             }
             return null;
           },
-          onSaved: (String value) {
-            _mobile = value;
+          onSaved: (String? value) {
+            _mobile = value!;
           },
         ),
       ],
@@ -218,16 +218,16 @@ class _RegisterState extends State<Register> {
               borderRadius: BorderRadius.circular(30),
             ),
             filled: true,
-            fillColor: Colors.blueGrey[100].withOpacity(.5),
+            fillColor: Colors.blueGrey[100]?.withOpacity(.5),
           ),
-          validator: (String value) {
-            if (value.isEmpty) {
+          validator: (String? value) {
+            if (value!.isEmpty) {
               return 'Password is required';
             }
             return null;
           },
-          onSaved: (String value) {
-            _password = value;
+          onSaved: (String? value) {
+            _password = value!;
           },
         ),
       ],
@@ -250,10 +250,10 @@ class _RegisterState extends State<Register> {
               borderRadius: BorderRadius.circular(40),
             ),
             filled: true,
-            fillColor: Colors.blueGrey[100].withOpacity(.5),
+            fillColor: Colors.blueGrey[100]?.withOpacity(.5),
           ),
-          validator: (String value) {
-            if (value.isEmpty) {
+          validator: (String? value) {
+            if (value!.isEmpty) {
               return 'You need to re-enter your password';
             }
             if (value != _password) {
@@ -261,8 +261,8 @@ class _RegisterState extends State<Register> {
             }
             return null;
           },
-          onSaved: (String value) {
-            _confirmPass = value;
+          onSaved: (String? value) {
+            _confirmPass = value!;
           },
         ),
       ],
@@ -339,11 +339,11 @@ class _RegisterState extends State<Register> {
                           ),
                         ),
                         onPressed: () {
-                          if (!_formKeyRegister.currentState.validate()) {
+                          if (!_formKeyRegister.currentState!.validate()) {
                             return;
                           }
 
-                          _formKeyRegister.currentState.save();
+                          _formKeyRegister.currentState?.save();
 
                           register({
                             'firstname': _firstname,

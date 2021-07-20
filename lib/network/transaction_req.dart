@@ -15,12 +15,12 @@ List<Transaction> parse(dynamic responseBody) {
 // Fetch the cart data with the users api_token getten from a logged in user
 Future<List<Transaction>> fetchTransactions() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  var apiToken = prefs.getString('api_token');
+  String? apiToken = prefs.getString('api_token');
 
   var url = Uri.parse('https://myjumpq.net/api/user/transactions');
   // var data;
 
-  final response = await http.get(url, headers: {"api_token": apiToken});
+  final response = await http.get(url, headers: {"api_token": apiToken!});
   // var response = await Dio().get(
   //   url,
   //   options: Options(headers: {"api_token": apiToken}),

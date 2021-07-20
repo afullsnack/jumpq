@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 OverlayEntry showOverlay(context) {
-  OverlayState oState = Overlay.of(context);
+  OverlayState? oState = Overlay.of(context);
 
   OverlayEntry entry = OverlayEntry(
     builder: (context) {
@@ -17,6 +17,6 @@ OverlayEntry showOverlay(context) {
     opaque: false,
   );
 
-  oState.insert(entry);
+  oState!.insert(entry);
   return entry;
 }

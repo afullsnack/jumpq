@@ -7,16 +7,16 @@ import 'package:jumpq/widgets/overlay.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Login extends StatefulWidget {
-  Login({Key key, this.title}) : super(key: key);
-  final String title;
+  Login({Key? key, this.title}) : super(key: key);
+  final String? title;
 
   @override
   _LoginState createState() => _LoginState();
 }
 
 class _LoginState extends State<Login> {
-  String _username;
-  String _password;
+  String? _username;
+  String? _password;
 
   final GlobalKey<FormState> _formKeyLogin = GlobalKey<FormState>();
 
@@ -27,7 +27,7 @@ class _LoginState extends State<Login> {
 
   Future isUserLoggedIn() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    bool isLoggedIn = prefs.get('isLoggedIn');
+    bool? isLoggedIn = prefs.getBool('isLoggedIn');
     final user = new Map<String, dynamic>();
     try {
       if (isLoggedIn != null && isLoggedIn) {
@@ -64,15 +64,15 @@ class _LoginState extends State<Login> {
               borderRadius: BorderRadius.circular(30),
             ),
             filled: true,
-            fillColor: Colors.blueGrey[100].withOpacity(.5),
+            fillColor: Colors.blueGrey[100]?.withOpacity(.5),
           ),
-          validator: (String value) {
-            if (value.isEmpty) {
+          validator: (String? value) {
+            if (value!.isEmpty) {
               return 'Username is required';
             }
             return null;
           },
-          onSaved: (String value) {
+          onSaved: (String? value) {
             _username = value;
           },
         ),
@@ -97,15 +97,15 @@ class _LoginState extends State<Login> {
               borderRadius: BorderRadius.circular(30),
             ),
             filled: true,
-            fillColor: Colors.blueGrey[100].withOpacity(.5),
+            fillColor: Colors.blueGrey[100]?.withOpacity(.5),
           ),
-          validator: (String value) {
-            if (value.isEmpty) {
+          validator: (String? value) {
+            if (value!.isEmpty) {
               return 'Password is required';
             }
             return null;
           },
-          onSaved: (String value) {
+          onSaved: (String? value) {
             _password = value;
           },
         ),
@@ -187,11 +187,11 @@ class _LoginState extends State<Login> {
                               OverlayEntry entry = showOverlay(context);
                               SharedPreferences prefs =
                                   await SharedPreferences.getInstance();
-                              if (!_formKeyLogin.currentState.validate()) {
+                              if (!_formKeyLogin.currentState!.validate()) {
                                 return;
                               }
 
-                              _formKeyLogin.currentState.save();
+                              _formKeyLogin.currentState?.save();
 
                               // final asyncValue = context.read(loginProvider({
                               //   'username': _username,

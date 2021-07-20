@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:jumpq/models/index.dart';
 
 class CartItemView extends StatelessWidget {
-  final CartItem item;
-  final Function removeCartItem;
+  final CartItem? item;
+  final Function? removeCartItem;
   CartItemView({this.item, this.removeCartItem});
 
   @override
@@ -17,7 +17,7 @@ class CartItemView extends StatelessWidget {
             width: 110,
             height: 110,
             fit: BoxFit.contain,
-            image: NetworkImage(item.imgUrl),
+            image: NetworkImage(item!.imgUrl!),
           ),
           SizedBox(width: 10),
           Column(
@@ -25,7 +25,7 @@ class CartItemView extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                item.product,
+                item!.product!,
                 style: TextStyle(
                   color: Colors.deepOrange,
                   fontSize: 16,
@@ -33,7 +33,7 @@ class CartItemView extends StatelessWidget {
                 ),
               ),
               Text(
-                item.quantity.toString(),
+                item!.quantity.toString(),
                 style: TextStyle(
                   color: Colors.black.withOpacity(.5),
                   fontSize: 16,
@@ -41,7 +41,7 @@ class CartItemView extends StatelessWidget {
                 ),
               ),
               Text(
-                item.id.toString(),
+                item!.id.toString(),
                 style: TextStyle(
                   color: Colors.black.withOpacity(.5),
                   fontSize: 16,
@@ -49,7 +49,7 @@ class CartItemView extends StatelessWidget {
                 ),
               ),
               Text(
-                '${item.currency} ${item.price}',
+                '${item!.currency} ${item!.price}',
                 style: TextStyle(
                   color: Colors.greenAccent[700],
                   fontSize: 16,
@@ -61,7 +61,7 @@ class CartItemView extends StatelessWidget {
           SizedBox(width: 95),
           GestureDetector(
             onTap: () {
-              removeCartItem();
+              removeCartItem!();
             },
             child: Icon(Icons.close),
           ),

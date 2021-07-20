@@ -13,9 +13,9 @@ import 'package:jumpq/widgets/widgets.dart';
 import 'package:path_provider/path_provider.dart';
 
 class TransactionScreen extends StatefulWidget {
-  TransactionScreen({Key key, this.title}) : super(key: key);
+  TransactionScreen({Key? key, this.title}) : super(key: key);
 
-  final String title;
+  final String? title;
 
   @override
   _TransactionScreenState createState() => _TransactionScreenState();
@@ -40,15 +40,15 @@ class _TransactionScreenState extends State<TransactionScreen> {
 
   @override
   Widget build(BuildContext context) {
-    OverlayEntry entry = ModalRoute.of(context).settings.arguments;
-    if (transactions.isNotEmpty) entry.remove();
+    OverlayEntry? entry = ModalRoute.of(context).settings.arguments;
+    if (transactions.isNotEmpty) entry!.remove();
     return Scaffold(
 //      backgroundColor: Colors.deepOrange[700],
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           Header(
-            title: widget.title,
+            title: widget.title!,
             actionIcon: Icon(
               Icons.arrow_back_ios,
               color: Colors.white,

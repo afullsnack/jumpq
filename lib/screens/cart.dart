@@ -5,9 +5,9 @@ import 'package:jumpq/widgets/overlay.dart';
 import 'package:jumpq/widgets/widgets.dart';
 
 class Cart extends StatefulWidget {
-  Cart({Key key, this.title}) : super(key: key);
+  Cart({Key? key, this.title}) : super(key: key);
 
-  final String title;
+  final String? title;
 
   @override
   _CartState createState() => _CartState();
@@ -34,14 +34,14 @@ class _CartState extends State<Cart> {
 
   @override
   Widget build(BuildContext context) {
-    final args = ModalRoute.of(context).settings.arguments as Map;
+    final args = ModalRoute.of(context)?.settings.arguments as Map;
     final branch = args['branch'];
     print(branch);
     OverlayEntry entry = args['entry'];
 
     if (cartItems.isNotEmpty) entry.remove();
     final total = cartItems.isNotEmpty
-        ? cartItems.map((item) => double.parse(item.price) * item.quantity)
+        ? cartItems.map((item) => double.parse(item.price!) * item.quantity!)
         : '0.0';
     final currency = cartItems.isNotEmpty ? cartItems[0].currency : 'N';
     // print(branchData);
@@ -51,7 +51,7 @@ class _CartState extends State<Cart> {
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           Header(
-            title: widget.title,
+            title: widget.title!,
             actionIcon: Icon(
               Icons.arrow_back_ios,
               color: Colors.white,
@@ -100,7 +100,7 @@ class _CartState extends State<Cart> {
                   .map((item) => CartItemView(
                         item: item,
                         removeCartItem: () async {
-                          bool isDeleted = await deleteCartItem(item.id);
+                          bool isDeleted = await deleteCartItem(item.id!);
                           isDeleted
                               ? setState(() {
                                   cartItems.remove(item);

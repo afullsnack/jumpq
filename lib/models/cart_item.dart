@@ -1,11 +1,11 @@
 class CartItem {
-  int id;
-  int productId;
-  String product;
-  int quantity;
-  String currency;
-  String price;
-  String imgUrl;
+  int? id;
+  int? productId;
+  String? product;
+  int? quantity;
+  String? currency;
+  String? price;
+  String? imgUrl;
 
   CartItem({
     this.id,

@@ -1,8 +1,11 @@
+import 'package:barcode_scan2/barcode_scan2.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:jumpq/models/index.dart';
 import 'package:jumpq/network/cart_req.dart';
 import 'package:jumpq/widgets/overlay.dart';
 import 'package:jumpq/widgets/widgets.dart';
+import 'dart:io' show Platform;
 
 class Cart extends StatefulWidget {
   Cart({Key? key, this.title}) : super(key: key);
@@ -37,9 +40,13 @@ class _CartState extends State<Cart> {
     final args = ModalRoute.of(context)?.settings.arguments as Map;
     final branch = args['branch'];
     print(branch);
-    OverlayEntry entry = args['entry'];
+    // OverlayEntry? entry = args['entry'];
 
-    if (cartItems.isNotEmpty) entry.remove();
+    // // if (cartItems.isNotEmpty) entry.remove();
+    // if (entry != null) {
+    //   entry.remove();
+    //   entry = null;
+    // }
     final total = cartItems.isNotEmpty
         ? cartItems.map((item) => double.parse(item.price!) * item.quantity!)
         : '0.0';
@@ -127,17 +134,20 @@ class _CartState extends State<Cart> {
                     ),
                   ),
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () async {
+                      String? scanResult = await _codeOrScanDialog(context);
+                      print(scanResult);
+                    },
                     child: Icon(Icons.qr_code_sharp),
                     style: ButtonStyle(
-                      padding: MaterialStateProperty.all(
-                          EdgeInsets.symmetric(vertical: 20)),
-                      backgroundColor: MaterialStateProperty.all(
-                        Colors.deepOrangeAccent[400],
-                      ),
-                      shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(120))),
-                    ),
+                        padding: MaterialStateProperty.all(
+                            EdgeInsets.symmetric(vertical: 20)),
+                        backgroundColor: MaterialStateProperty.all(
+                          Colors.deepOrangeAccent[400],
+                        ),
+                        shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(120))),
+                        elevation: MaterialStateProperty.all(0)),
                   )
                 ],
               ),
@@ -146,5 +156,84 @@ class _CartState extends State<Cart> {
         ],
       ),
     );
+  }
+
+  Future<dynamic> _codeOrScanDialog(context) {
+    return Platform.isIOS
+        ? showCupertinoDialog(
+            context: context,
+            barrierDismissible: true,
+            builder: (_) {
+              TextEditingController _textController = TextEditingController();
+              return CupertinoAlertDialog(
+                title: Text('Product Code'),
+                content: Column(children: [
+                  Text('Enter a product code, or Scan'),
+                  SizedBox(height: 20),
+                  CupertinoTextField(
+                    controller: _textController,
+                  ),
+                ]),
+                actions: [
+                  CupertinoDialogAction(
+                    child: Text('Scan'),
+                    onPressed: () async {
+                      print('scan tapped');
+                      var result = await BarcodeScanner.scan();
+                      print(result.type);
+                      print(result.rawContent);
+                      print(result.format);
+                      print(result.formatNote);
+                      Navigator.of(context).pop(result.rawContent.toString());
+                    },
+                  ),
+                  CupertinoDialogAction(
+                    child: Text('Submit'),
+                    onPressed: () {
+                      Navigator.pop(context, _textController.text.toString());
+                    },
+                  ),
+                ],
+              );
+            },
+          )
+        : showDialog(
+            context: context,
+            builder: (_) {
+              TextEditingController _textController = TextEditingController();
+              return AlertDialog(
+                title: Text('Product Code'),
+                content: Column(
+                  children: [
+                    Text('Enter a product code, or Scan'),
+                    SizedBox(height: 20),
+                    TextField(
+                      controller: _textController,
+                    ),
+                  ],
+                ),
+                actions: [
+                  TextButton(
+                    child: Text('Scan'),
+                    onPressed: () async {
+                      print('scan tapped');
+                      var result = await BarcodeScanner.scan();
+                      print(result.type);
+                      print(result.rawContent);
+                      print(result.format);
+                      print(result.formatNote);
+                      Navigator.of(context).pop(result.rawContent.toString());
+                    },
+                  ),
+                  TextButton(
+                    child: Text('Submit'),
+                    onPressed: () {
+                      Navigator.pop(context, _textController.text.toString());
+                    },
+                  ),
+                ],
+              );
+            },
+          );
   }
 }

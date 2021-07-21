@@ -160,10 +160,10 @@ class Home extends StatelessWidget {
                                     print(result);
                                     OverlayEntry entry = showOverlay(context);
                                     var data = await verifyBranchId(result);
+                                    entry.remove();
                                     Navigator.pushNamed(context, 'cart',
                                         arguments: {
                                           "branch": data,
-                                          "entry": entry
                                         });
                                   }
                                   // Navigator.pushNamed(context, 'shop');

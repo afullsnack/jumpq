@@ -61,75 +61,85 @@ class _TransactionScreenState extends State<TransactionScreen> {
               child: ListView(
                 padding: EdgeInsets.all(0.0),
                 scrollDirection: Axis.vertical,
-                children: transactions
-                    .map((item) => PopupMenuButton(
-                        itemBuilder: (_) => <PopupMenuItem<String>>[
-                              new PopupMenuItem<String>(
-                                  child: new Text('View Transaction'),
-                                  value: 'view_trans'),
-                              new PopupMenuItem<String>(
-                                  child: new Text('View Transaction Barcode'),
-                                  value: 'view_barcode'),
-                            ],
-                        onSelected: (_) async {
-                          print(_ == "view_trans"
-                              ? "View trans screen"
-                              : "View Barcode screen");
-                          // check which menu item is selected and run logic
-                          if (_ == "view_trans") {
-                            // check if the receipt with transactionID exists
-                            final dir =
-                                await getApplicationDocumentsDirectory();
-                            final file = File(
-                                '${dir.path}/receipt-${item.transactionId}.pdf');
-                            bool fileDoesExist = await file.exists();
-                            if (fileDoesExist) {
-                              return PdfApi.openFile(file);
-                            }
+                children: transactions.isEmpty
+                    ? [
+                        Container(
+                          child: Center(
+                            child:
+                                Text('There are no transactions at this time'),
+                          ),
+                        )
+                      ]
+                    : transactions
+                        .map((item) => PopupMenuButton(
+                            itemBuilder: (_) => <PopupMenuItem<String>>[
+                                  new PopupMenuItem<String>(
+                                      child: new Text('View Transaction'),
+                                      value: 'view_trans'),
+                                  new PopupMenuItem<String>(
+                                      child:
+                                          new Text('View Transaction Barcode'),
+                                      value: 'view_barcode'),
+                                ],
+                            onSelected: (_) async {
+                              print(_ == "view_trans"
+                                  ? "View trans screen"
+                                  : "View Barcode screen");
+                              // check which menu item is selected and run logic
+                              if (_ == "view_trans") {
+                                // check if the receipt with transactionID exists
+                                final dir =
+                                    await getApplicationDocumentsDirectory();
+                                final file = File(
+                                    '${dir.path}/receipt-${item.transactionId}.pdf');
+                                bool fileDoesExist = await file.exists();
+                                if (fileDoesExist) {
+                                  return PdfApi.openFile(file);
+                                }
 
-                            final invoice = Invoice(
-                              info: InvoiceInfo(
-                                currency: item.currency,
-                                transactionId: item.transactionId,
-                                date: item.transactionDate,
-                                serviceCharge:
-                                    double.parse(item.serviceCharge!),
-                              ),
-                              supplier: Supplier(
-                                branch: item.branch,
-                                address: item.address,
-                                phone: item.phone,
-                                receiptUrl: item.receiptUrl,
-                              ),
-                              customer: Customer(
-                                name: item.buyerName,
-                                phone: item.buyerPhone,
-                              ),
-                              items: item.purchases!
-                                  .map(
-                                    (i) => InvoiceItem(
-                                      description: i["product"],
-                                      quantity: int.parse(i["quantity"]),
-                                      price: double.parse(i["price"]),
-                                    ),
-                                  )
-                                  .toList(),
-                            );
-                            final pdfFile =
-                                await PdfInvoiceApi.generate(invoice);
+                                final invoice = Invoice(
+                                  info: InvoiceInfo(
+                                    currency: item.currency,
+                                    transactionId: item.transactionId,
+                                    date: item.transactionDate,
+                                    serviceCharge:
+                                        double.parse(item.serviceCharge!),
+                                  ),
+                                  supplier: Supplier(
+                                    branch: item.branch,
+                                    address: item.address,
+                                    phone: item.phone,
+                                    receiptUrl: item.receiptUrl,
+                                  ),
+                                  customer: Customer(
+                                    name: item.buyerName,
+                                    phone: item.buyerPhone,
+                                  ),
+                                  items: item.purchases!
+                                      .map(
+                                        (i) => InvoiceItem(
+                                          description: i["product"],
+                                          quantity: int.parse(i["quantity"]),
+                                          price: double.parse(i["price"]),
+                                        ),
+                                      )
+                                      .toList(),
+                                );
+                                final pdfFile =
+                                    await PdfInvoiceApi.generate(invoice);
 
-                            PdfApi.openFile(pdfFile);
-                          }
-                        },
-                        child: TransactionView(
-                          item: item,
-                          removeItem: () {
-                            setState(() {
-                              transactions.remove(item);
-                            });
-                          },
-                        )))
-                    .toList(),
+                                PdfApi.openFile(pdfFile);
+                              }
+                            },
+                            child: TransactionView(
+                              item: item,
+                              removeItem: () {
+                                setState(() {
+                                  transactions.remove(item);
+                                });
+                              },
+                            )))
+                        .toList(),
               ),
             ),
           ),

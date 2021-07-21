@@ -6,6 +6,7 @@ void main() => runApp(
       ProviderScope(
         child: MaterialApp(
           //  home: Home(title: 'Home'),
+          debugShowCheckedModeBanner: false,
           initialRoute: 'splash',
           routes: {
             'splash': (context) => Splash(),
